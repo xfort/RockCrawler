@@ -1,0 +1,65 @@
+<component name="libraryTable">
+  <library name="GOPATH &lt;RockCrawler&gt;">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/../../../xs" />
+      <root url="file://$PROJECT_DIR$/../../../.idea" />
+      <root url="file://$PROJECT_DIR$/../../../xfot" />
+      <root url="file://$PROJECT_DIR$/../../../../../lib/src/gopkg.in" />
+      <root url="file://$PROJECT_DIR$/../../../../../lib/src/github.com" />
+      <root url="file://$PROJECT_DIR$/../../../../../lib/src/golang.org" />
+      <root url="file://$PROJECT_DIR$/../../../xsffmpeg" />
+      <root url="file://$PROJECT_DIR$/../../../xsrobotserver" />
+      <root url="file://$PROJECT_DIR$/../../../xiushuang.com" />
+      <root url="file://$PROJECT_DIR$/../../../server" />
+      <root url="file://$PROJECT_DIR$/../../../cxyblog" />
+      <root url="file://$PROJECT_DIR$/../../../crypt" />
+      <root url="file://$PROJECT_DIR$/../.." />
+      <root url="file://$PROJECT_DIR$/../../../android" />
+      <root url="file://$PROJECT_DIR$/../../../../../lib/src/google.golang.org" />
+      <root url="file://$PROJECT_DIR$/../../../lingqi" />
+      <root url="file://$PROJECT_DIR$/../../../sqlite3" />
+      <root url="file://$PROJECT_DIR$/../../../xfort" />
+      <root url="file://$PROJECT_DIR$/../../../xiushuang" />
+      <root url="file://$PROJECT_DIR$/../../../RockCrawler" />
+      <root url="file://$PROJECT_DIR$/../../../pic" />
+      <root url="file://$PROJECT_DIR$/../../../GifCollect" />
+      <root url="file://$PROJECT_DIR$/../../../fileserver" />
+      <root url="file://$PROJECT_DIR$/../../../shell" />
+      <root url="file://$PROJECT_DIR$/../../../XSCrawler" />
+      <root url="file://$PROJECT_DIR$/../../../LiveVideo" />
+      <root url="file://$PROJECT_DIR$/../../../email" />
+    </CLASSES>
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/../../../xs" />
+      <root url="file://$PROJECT_DIR$/../../../.idea" />
+      <root url="file://$PROJECT_DIR$/../../../xfot" />
+      <root url="file://$PROJECT_DIR$/../../../../../lib/src/gopkg.in" />
+      <root url="file://$PROJECT_DIR$/../../../../../lib/src/github.com" />
+      <root url="file://$PROJECT_DIR$/../../../../../lib/src/golang.org" />
+      <root url="file://$PROJECT_DIR$/../../../xsffmpeg" />
+      <root url="file://$PROJECT_DIR$/../../../xsrobotserver" />
+      <root url="file://$PROJECT_DIR$/../../../xiushuang.com" />
+      <root url="file://$PROJECT_DIR$/../../../server" />
+      <root url="file://$PROJECT_DIR$/../../../cxyblog" />
+      <root url="file://$PROJECT_DIR$/../../../crypt" />
+      <root url="file://$PROJECT_DIR$/../.." />
+      <root url="file://$PROJECT_DIR$/../../../android" />
+      <root url="file://$PROJECT_DIR$/../../../../../lib/src/google.golang.org" />
+      <root url="file://$PROJECT_DIR$/../../../lingqi" />
+      <root url="file://$PROJECT_DIR$/../../../sqlite3" />
+      <root url="file://$PROJECT_DIR$/../../../xfort" />
+      <root url="file://$PROJECT_DIR$/../../../xiushuang" />
+      <root url="file://$PROJECT_DIR$/../../../RockCrawler" />
+      <root url="file://$PROJECT_DIR$/../../../pic" />
+      <root url="file://$PROJECT_DIR$/../../../GifCollect" />
+      <root url="file://$PROJECT_DIR$/../../../fileserver" />
+      <root url="file://$PROJECT_DIR$/../../../shell" />
+      <root url="file://$PROJECT_DIR$/../../../XSCrawler" />
+      <root url="file://$PROJECT_DIR$/../../../LiveVideo" />
+      <root url="file://$PROJECT_DIR$/../../../email" />
+    </SOURCES>
+    <excluded>
+      <root url="file://$PROJECT_DIR$" />
+    </excluded>
+  </library>
+</component>
