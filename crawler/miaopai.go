@@ -71,25 +71,14 @@ func (mp *MiaopaiCrawler) LoadHomeData(urlstr string, user *obj.UserObj) (suid s
 
 	user.IconUrl, _ = htmlDoc.Find("div.head.WscaleH").First().Attr("data-url")
 
-	scriptNodes := htmlDoc.Find("script")
-	scriptLen := scriptNodes.Length()
-	if scriptLen <= 0 {
-		mp.AddLog("主页html内未找到script元素", urlstr, user.Nickname)
-		return "", user, rockgo.NewError("主页html内未找到script元素", urlstr, user.Nickname)
-	}
+	suidArray := regexp.MustCompile(`var suid = '(\w+?)';`).FindSubmatch(resBytes)
 
-	for index := 0; index < scriptLen; index++ {
-		itemScript, errScript := scriptNodes.Eq(index).Html()
-		if errScript != nil {
-			continue
+	if len(suidArray) > 1 {
+		user.SourceId = string(suidArray[1])
+		if user.SourceId != "" {
+			mp.AddLog("解析主页的suid失败", user.Nickname, urlstr)
+			err = rockgo.NewError("解析主页的suid失败", user.Nickname, urlstr)
 		}
-
-		itemScript = strings.TrimSpace(itemScript)
-		//if strings.HasPrefix(itemScript, `FastClick.attach`) {
-		user.SourceId = regexp.MustCompile("var suid = '*';").FindString(itemScript)
-
-		//}
 	}
-
 	return user.SourceId, user, err
 }

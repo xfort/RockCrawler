@@ -36,6 +36,7 @@ const (
 	User_HomeUrl        = "home_url"
 	User_SourceSiteCode = "user_source_site_code"
 	User_SourceSiteName = "user_source_site_name"
+	User_ArticleNum     = "article_num"
 
 	Article_MediaData = "media_data"
 )
@@ -110,6 +111,7 @@ func (objdb *ArticleObjDB) createUserTab() error {
 	sqlBUf.WriteString(User_SourceId + " NCHAR(128) UNIQUE,")
 	sqlBUf.WriteString(User_Nickname + " NCHAR(128),")
 	sqlBUf.WriteString(User_IconUrl + " NVARCHAR(512),")
+	sqlBUf.WriteString(User_ArticleNum + " INT,")
 	sqlBUf.WriteString(User_HomeUrl + " NVARCHAR(1024),")
 	sqlBUf.WriteString(User_SourceSiteCode + " INT,")
 	sqlBUf.WriteString(User_SourceSiteName + " NCHAR(64),")
