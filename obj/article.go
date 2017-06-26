@@ -23,9 +23,10 @@ type ArticleObj struct {
 	PubStatusCode int //发布状态，发布标记
 	UserObj
 
-	MediaData map[string]string //视频数据
-}
+	MediaData map[string]string //视频等富媒体数据
 
+	VideoSrc string //视频播放地址，可以直接播放的地址
+}
 
 type UserObj struct {
 	DbId int64
@@ -36,4 +37,6 @@ type UserObj struct {
 	HomeUrl        string
 	SourceSiteCode int    //网站标识
 	SourceSiteName string //网站名字
+
+	ArticleNum int //文章数
 }
