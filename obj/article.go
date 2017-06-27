@@ -1,5 +1,12 @@
 package obj
 
+import "encoding/json"
+
+const (
+	Site_MiaoPai      = "MiaoPai"
+	Site_MiaoPai_Code = 1
+)
+
 type ArticleObj struct {
 	DBId int64
 
@@ -26,6 +33,8 @@ type ArticleObj struct {
 	MediaData map[string]string //视频等富媒体数据
 
 	VideoSrc string //视频播放地址，可以直接播放的地址
+
+	SourceAuthor string //原文中的来源作者，格式 来源_作者，例如多玩网站内一些文章，玉面小白狐_
 }
 
 type UserObj struct {
@@ -39,4 +48,35 @@ type UserObj struct {
 	SourceSiteName string //网站名字
 
 	ArticleNum int //文章数
+}
+
+func ObtainArticleObj() *ArticleObj {
+	return &ArticleObj{}
+}
+
+func ObtainUserObj() *UserObj {
+	return &UserObj{}
+}
+
+func (article *ArticleObj) GetThumbnailsData() string {
+	if article.ThumbnailsData != nil && len(article.ThumbnailsData) > 0 {
+		jsonByte, err := json.Marshal(article.ThumbnailsData)
+		if err != nil {
+			return "error" + err.Error()
+		}
+		return string(jsonByte)
+	}
+	return ""
+}
+
+func (article *ArticleObj) GetMediaData() string {
+
+	if article.MediaData != nil && len(article.MediaData) > 0 {
+		bytesStr, err := json.Marshal(article.MediaData)
+		if err != nil {
+			return "error" + err.Error()
+		}
+		return string(bytesStr)
+	}
+	return ""
 }

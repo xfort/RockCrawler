@@ -3,8 +3,8 @@ package crawler
 import (
 	"testing"
 	"github.com/xfort/rockgo"
-	"github.com/xfort/RockCrawler/obj"
 	"log"
+	"encoding/json"
 )
 
 var mpCrawler *MiaopaiCrawler = &MiaopaiCrawler{}
@@ -12,8 +12,13 @@ var mpCrawler *MiaopaiCrawler = &MiaopaiCrawler{}
 func TestMiaopaiCrawler_LoadHomeData(t *testing.T) {
 
 	mpCrawler.mphttp = rockgo.NewRockHttp()
-	userObj := &obj.UserObj{}
-	suid, userObj, err := mpCrawler.LoadHomeData("http://www.miaopai.com/v2_index/u/paike_zkbv7sra9b", userObj)
 
-	log.Println(err, suid, userObj.Nickname)
+	articleArray, user, err := mpCrawler.LoadHomeArticles("http://www.miaopai.com/v2_index/u/paike_zkbv7sra9b")
+
+	if err != nil {
+		log.Fatalln(err)
+	}
+	jsonByte, err := json.Marshal(articleArray)
+
+	log.Println(err, string(jsonByte))
 }
