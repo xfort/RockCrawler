@@ -13,7 +13,7 @@ func TestMiaopaiCrawler_LoadHomeData(t *testing.T) {
 
 	mpCrawler.mphttp = rockgo.NewRockHttp()
 
-	articleArray, user, err := mpCrawler.LoadHomeArticles("http://www.miaopai.com/v2_index/u/paike_zkbv7sra9b")
+	articleArray, _, err := mpCrawler.LoadHomeArticles("http://www.miaopai.com/v2_index/u/paike_zkbv7sra9b")
 
 	if err != nil {
 		log.Fatalln(err)
