@@ -2,7 +2,9 @@
   "tasks": [
     {
       "home_url": "http://www.miaopai.com/v2_index/u/paike_zkbv7sra9b",
-      "name": "一风之音"
+      "name": "一风之音",
+      "collect":1,
+      "publish":0
     },
     {
       "home_url": "http://www.yixia.com/u/paike_y3qar18r36",

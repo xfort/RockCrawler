@@ -22,7 +22,8 @@ type CrawlerObj struct {
 	TypeName string
 	execpath string
 
-	LoadArticles LoadArticlesHandler
+	LoadArticles    LoadArticlesHandler
+	PublishArticles func([]*obj.ArticleObj)
 }
 
 //执行任务的具体实现
@@ -104,8 +105,13 @@ func (co *CrawlerObj) readConfig() {
 			co.AddLog(rockgo.Log_Error, "解析配置文件task的url为空", configPath)
 			continue
 		}
+		collectCode := itemJson.Get("collect").MustInt()
+		if collectCode == 0 {
+			continue
+		}
 		taskObj := &obj.TaskObj{TaskUrl: taskUrl}
 		taskObj.Name = itemJson.Get("name").MustString()
+		taskObj.CollectCode = collectCode
 
 		co.AddTaskObj(taskObj)
 	}
@@ -115,14 +121,13 @@ func (co *CrawlerObj) readConfig() {
 	} else if tasksLen > 60 {
 		tasksLen = 60
 	}
-
 	time.AfterFunc(time.Duration(tasksLen)*time.Minute, co.readConfig)
-
 }
 
 func (co *CrawlerObj) AddTaskObj(task *obj.TaskObj) {
 	co.sourceTaskChan <- task
 }
+
 func (co *CrawlerObj) GetOutArticle() (*obj.ArticleObj, bool) {
 	res, ok := <-co.outResChan
 	return res, ok
@@ -140,16 +145,30 @@ func (co *CrawlerObj) sendRes(articleArray []*obj.ArticleObj) {
 //开始处理任务，阻塞死循环
 func (co *CrawlerObj) startHandlerTask() {
 	for {
+
 		item, ok := <-co.sourceTaskChan
 		if !ok {
 			break
 		}
+
+		if co.LoadArticles == nil {
+			co.AddLog(rockgo.Log_Error, "执行任务错误，负责读取处理文章函数为空", item.Name, item.TaskUrl)
+			continue
+		}
+
 		articleArray, err := co.LoadArticles(item)
+
 		if err != nil {
 			co.AddLog(rockgo.Log_Error, "执行任务错误", err, item.Name, item.TaskUrl)
 		}
+
 		if articleArray != nil && len(articleArray) > 0 {
+			go co.PublishArticles(articleArray)
 			go co.sendRes(articleArray)
 		}
 	}
+}
+
+func (co *CrawlerObj) StopNow() {
+	//TODO
 }

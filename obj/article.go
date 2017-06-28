@@ -5,6 +5,9 @@ import "encoding/json"
 const (
 	Site_MiaoPai      = "MiaoPai"
 	Site_MiaoPai_Code = 1
+
+	Site_DuoWan      = "DuoWan"
+	Site_DuoWan_Code = 2
 )
 
 type ArticleObj struct {
@@ -35,6 +38,8 @@ type ArticleObj struct {
 	VideoSrc string //视频播放地址，可以直接播放的地址
 
 	SourceAuthor string //原文中的来源作者，格式 来源_作者，例如多玩网站内一些文章，玉面小白狐_
+
+	TaskObj *TaskObj
 }
 
 type UserObj struct {
