@@ -6,9 +6,7 @@ import (
 	"github.com/xfort/RockCrawler/obj"
 	"os"
 	"path"
-	"io/ioutil"
 	"time"
-	"github.com/bitly/go-simplejson"
 	"log"
 )
 
@@ -23,7 +21,7 @@ type CrawlerObj struct {
 	execpath string
 
 	LoadArticles    LoadArticlesHandler
-	PublishArticles func([]*obj.ArticleObj)
+	PublishArticles func([]*obj.ArticleObj) error
 }
 
 //执行任务的具体实现
@@ -75,45 +73,19 @@ func (co *CrawlerObj) Start() {
 }
 
 func (co *CrawlerObj) readConfig() {
+
 	configPath := path.Join(co.execpath, "config_"+co.TypeName+".json")
-	configByte, err := ioutil.ReadFile(configPath)
+
+	taskArray, err := obj.ParseConfigFile(configPath, path.Join(co.execpath, "publisher_config.json"))
 	if err != nil {
-		co.AddLog(rockgo.Log_Error, "读取配置文件错误", err.Error(), configPath)
+		co.AddLog(rockgo.Log_Error, "读取解析配置文件错误", err.Error(), configPath)
 		time.AfterFunc(1*time.Minute, co.readConfig)
 		return
 	}
-	configjson, err := simplejson.NewJson(configByte)
-	if err != nil {
-		co.AddLog(rockgo.Log_Error, "解析配置文件为json错误", err.Error(), configPath)
-		time.AfterFunc(1*time.Minute, co.readConfig)
+	tasksLen := len(taskArray)
 
-		return
-	}
-	tasksJson := configjson.Get("tasks")
-	tasksLen := len(tasksJson.MustArray())
-	if tasksLen <= 0 {
-		co.AddLog(rockgo.Log_Error, "解析配置文件json的tasks错误，长度<=0", configPath)
-		time.AfterFunc(1*time.Minute, co.readConfig)
-
-		return
-	}
-
-	for index := 0; index < tasksLen; index++ {
-		itemJson := tasksJson.GetIndex(index)
-		taskUrl := itemJson.Get("url").MustString()
-		if taskUrl == "" {
-			co.AddLog(rockgo.Log_Error, "解析配置文件task的url为空", configPath)
-			continue
-		}
-		collectCode := itemJson.Get("collect").MustInt()
-		if collectCode == 0 {
-			continue
-		}
-		taskObj := &obj.TaskObj{TaskUrl: taskUrl}
-		taskObj.Name = itemJson.Get("name").MustString()
-		taskObj.CollectCode = collectCode
-
-		co.AddTaskObj(taskObj)
+	for _, item := range taskArray {
+		co.AddTaskObj(item)
 	}
 
 	if tasksLen < 10 {
@@ -145,7 +117,6 @@ func (co *CrawlerObj) sendRes(articleArray []*obj.ArticleObj) {
 //开始处理任务，阻塞死循环
 func (co *CrawlerObj) startHandlerTask() {
 	for {
-
 		item, ok := <-co.sourceTaskChan
 		if !ok {
 			break
@@ -163,8 +134,14 @@ func (co *CrawlerObj) startHandlerTask() {
 		}
 
 		if articleArray != nil && len(articleArray) > 0 {
-			go co.PublishArticles(articleArray)
-			go co.sendRes(articleArray)
+			if co.PublishArticles != nil {
+				err = co.PublishArticles(articleArray)
+				if err != nil {
+					co.AddLog(rockgo.Log_Error, "发布文章错误", err.Error())
+				}
+			}
+
+			//go co.sendRes(articleArray)
 		}
 	}
 }

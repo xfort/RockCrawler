@@ -10,6 +10,13 @@ const (
 	Site_DuoWan_Code = 2
 )
 
+const (
+	Status_PublishDataErr = 20
+	Status_Publishing     = 21
+	Status_PublishSuccess = 22
+	Status_PublishFail    = 23
+)
+
 type ArticleObj struct {
 	DBId int64
 
@@ -40,6 +47,8 @@ type ArticleObj struct {
 	SourceAuthor string //原文中的来源作者，格式 来源_作者，例如多玩网站内一些文章，玉面小白狐_
 
 	TaskObj *TaskObj
+
+	PubDBId int64 //发布状态数据表的dbid
 }
 
 type UserObj struct {

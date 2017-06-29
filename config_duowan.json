@@ -1,10 +1,21 @@
-{
-  "tasks": [
-    {
-      "url": "http://wzry.duowan.com/tag/327319645493.html",
-      "name": "多玩_王者荣耀_新闻列表",
-      "collect": 1,
-      "publish": 0
-    }
-  ]
-}
+[
+  {
+    "url": "http://wzry.duowan.com/tag/327319645493.html",
+    "name": "多玩_王者荣耀_新闻列表",
+    "collect": 1,
+    "publish": 0,
+    "publisher": [
+      {
+        "id": "xiushuang",
+        "body": {
+          "catid": "23",
+          "typeid": "23",
+          "remote": "0",
+          "status": "0"
+        },
+        "header": {
+        }
+      }
+    ]
+  }
+]

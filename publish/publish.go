@@ -17,6 +17,7 @@ type PublishObj struct {
 	execpath          string
 
 	handleArticle func(*obj.ArticleObj, *obj.TaskObj) error
+	AddLog        func(int, ...interface{})
 }
 
 func (pub *PublishObj) Init(httpobj *rockgo.RockHttp, dbobj *db.ArticleObjDB) error {
@@ -27,13 +28,10 @@ func (pub *PublishObj) Init(httpobj *rockgo.RockHttp, dbobj *db.ArticleObjDB) er
 		return err
 	}
 
-	pub.sourceArticleChan = make(chan *obj.ArticleObj, 2048)
-
-	if dbobj == nil {
-
-	} else {
-		pub.DBObj = dbobj
+	if pub.DBObj == nil && dbobj == nil {
+		return rockgo.NewError("发布器初始化失败，数据库不能为空")
 	}
+	pub.DBObj = dbobj
 	return nil
 }
 
@@ -45,15 +43,25 @@ func (pub *PublishObj) AddArticle(article *obj.ArticleObj) {
 	pub.sourceArticleChan <- article
 }
 
+func (pub *PublishObj) AddArticles(articles []*obj.ArticleObj) {
+	for _, item := range articles {
+		pub.sourceArticleChan <- item
+	}
+}
+
 func (pub *PublishObj) handleArticles() {
 	for {
 		item, ok := <-pub.sourceArticleChan
 		if !ok {
 			break
 		}
-		pub.handleArticle(item, item.TaskObj)
-		//if err != nil {
-		//
-		//}
+		if item.TaskObj.CollectCode == 0 {
+			pub.AddLog(rockgo.Log_Info, "文章配置为不发布", item.Title, item.SourceSiteName, item.SourceWebUrl)
+			continue
+		}
+		err := pub.handleArticle(item, item.TaskObj)
+		if err != nil {
+			pub.AddLog(rockgo.Log_Error, "发布文章错误", err.Error())
+		}
 	}
 }

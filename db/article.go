@@ -47,6 +47,18 @@ const (
 	Article_VideoSrc  = "video_src"
 )
 
+const (
+	Publish_Tab_Suffix          = "_publish"
+	Publish_DBId                = "id"
+	Publish_ArticleDBId         = "article_dbid"
+	Publish_ArticleSourceId     = "source_id"
+	Publish_ArticleTitle        = "title"
+	Publish_ArticleSourceWebUrl = "source_web_url"
+	Publish_Status              = "status"
+	Publish_CreateTime          = "create_time"
+	Publish_LastUpdateTime      = "last_update_time"
+)
+
 type ArticleObjDB struct {
 	objDB    *sql.DB
 	dataname string
@@ -222,4 +234,88 @@ func (objdb *ArticleObjDB) InsertArticlce(article *obj.ArticleObj) (int64, error
 		return 0, errors.New(err.Error() + sqlStr)
 	}
 	return res.LastInsertId()
+}
+
+//创建 发布记录数据表
+func (objdb *ArticleObjDB) CreatePublishTab(tabPre string) error {
+	sqlBUf := bytes.NewBufferString("CREATE TABLE IF NOT EXIST " + tabPre + Publish_Tab_Suffix + "(")
+	sqlBUf.WriteString(Publish_DBId + " INTEGER PRIMARY KEY AUTOINCREMENT,")
+	sqlBUf.WriteString(Publish_ArticleDBId + " INT,")
+	sqlBUf.WriteString(Publish_ArticleTitle + " NCHAR(128),")
+	sqlBUf.WriteString(Publish_ArticleSourceId + " NCHAR(128),")
+	sqlBUf.WriteString(Publish_ArticleSourceWebUrl + " NVARCHAR(1024),")
+	sqlBUf.WriteString(Publish_Status + " INT,")
+	sqlBUf.WriteString(Publish_CreateTime + " DATETIME DEFAULT (datetime('now','localtime')),")
+	sqlBUf.WriteString(Publish_LastUpdateTime + " DATETIME")
+	sqlBUf.WriteString(");")
+
+	_, err := objdb.objDB.Exec(sqlBUf.String())
+	if err != nil {
+		return rockgo.NewError("创建Publish数据表失败", err.Error(), sqlBUf.String())
+	}
+	return nil
+}
+
+//查询文章发布状态,根据Article.DBId
+func (objdb *ArticleObjDB) QueryArticlePublishStatus(tabPre string, article *obj.ArticleObj) (status int, err error) {
+	if article.DBId <= 0 {
+		return 0, rockgo.NewError("文章 dbid<=0", article.Title, article.DBId)
+	}
+	sqlStr := "SELECT " + Publish_DBId + "," + Publish_Status
+	sqlStr = sqlStr + " FROM " + tabPre + Publish_Tab_Suffix
+	sqlStr = sqlStr + " WHERE " + Publish_ArticleDBId + "=?;"
+
+	res := objdb.objDB.QueryRow(sqlStr, article.DBId)
+	var pubId int64
+	var statusCode int
+	err = res.Scan(&pubId, &status)
+	article.PubDBId = pubId
+	if err != nil {
+		if err == sql.ErrNoRows {
+			return 0, nil
+		}
+		return 0, errors.New("查询文章发布状态错误_" + err.Error() + "_" + sqlStr)
+	}
+	return statusCode, nil
+}
+
+//添加文章发布状态
+func (objdb *ArticleObjDB) InsertPublishArticle(tabPre string, article *obj.ArticleObj) (int64, error) {
+	sqlStr := "INSERT INTO " + tabPre + Publish_Tab_Suffix + "("
+	sqlStr = sqlStr + Publish_ArticleDBId + ","
+	sqlStr = sqlStr + Publish_ArticleTitle + ","
+	sqlStr = sqlStr + Publish_ArticleSourceId + ","
+	sqlStr = sqlStr + Publish_ArticleSourceWebUrl + ","
+	sqlStr = sqlStr + Publish_Status + ")"
+	sqlStr = sqlStr + " VALUES(?,?,?,?,?);"
+
+	res, err := objdb.objDB.Exec(sqlStr, article.DBId, article.Title, article.SourceId, article.SourceWebUrl, article.PubStatusCode)
+	if err != nil {
+		return 0, errors.New("新增文章发布数据失败_" + err.Error() + "_" + sqlStr + "_" + article.Title)
+	}
+
+	article.PubDBId, err = res.LastInsertId()
+	if err != nil {
+		return 0, errors.New("新增文章发布数据失败_" + err.Error() + "_" + sqlStr + "_" + article.Title)
+	}
+
+	return article.PubDBId, nil
+}
+
+//更新文章发布状态码,根据article.pubdbid
+func (objdb *ArticleObjDB) UpdateArticlePublishStatus(tabPre string, articleObj *obj.ArticleObj, status int) error {
+
+	if articleObj.PubDBId <= 0 {
+		return errors.New("文章PubDBID<=0," + articleObj.Title)
+	}
+
+	sqlStr := "UPDATE " + tabPre + Publish_Tab_Suffix + " SET "
+	sqlStr = sqlStr + " " + Publish_Status + "=?"
+	sqlStr = sqlStr + " WHERE " + Publish_DBId + "=?"
+
+	_, err := objdb.objDB.Exec(sqlStr, status, articleObj.PubDBId)
+	if err != nil {
+		return errors.New(err.Error() + "_" + articleObj.Title)
+	}
+	return nil
 }

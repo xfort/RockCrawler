@@ -9,23 +9,27 @@ import (
 	"bytes"
 	"net/url"
 	"strings"
+	"github.com/xfort/RockCrawler/publish"
 )
 
 type DuowanCrawler struct {
 	CrawlerObj
+	XSPublish *publish.XSPublish
 }
 
 func (dw *DuowanCrawler) Init(cohttp *rockgo.RockHttp, codb *db.ArticleObjDB) error {
-	dw.LoadArticles = dw.LoadHomeArtiles
+	dw.LoadArticles = dw.loadHomeArtiles
+	dw.CrawlerObj.PublishArticles = dw.publishArticles
+	dw.XSPublish.AddLog = dw.AddLog
 	return dw.CrawlerObj.Init(cohttp, codb)
 }
 
-func (dw *DuowanCrawler) LoadHomeArtiles(task *obj.TaskObj) ([]*obj.ArticleObj, error) {
-
+func (dw *DuowanCrawler) loadHomeArtiles(task *obj.TaskObj) ([]*obj.ArticleObj, error) {
 	articleArray, err := dw.loadArticleList(task.TaskUrl)
 	if err != nil {
 		return nil, err
 	}
+
 	articleArray, err = dw.deleteDuplicateArticle(articleArray)
 	if err != nil {
 		dw.AddLog(rockgo.Log_Error, "文章去重错误", err.Error())
@@ -227,4 +231,10 @@ func (dw *DuowanCrawler) fixHtml(htmlNode *goquery.Selection) (string, error) {
 		}
 	}
 	return htmlNode.Html()
+}
+
+//发布文章
+func (dw *DuowanCrawler) publishArticles(articles []*obj.ArticleObj) error {
+	go dw.XSPublish.AddArticles(articles)
+	return nil
 }
