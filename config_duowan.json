@@ -1,15 +1,34 @@
 [
   {
-    "url": "http://wzry.duowan.com/tag/327319645493.html",
+    "url": "http://wzry.duowan.com/tag/327319645493_6.html",
     "name": "多玩_王者荣耀_新闻列表",
     "collect": 1,
-    "publish": 0,
+    "publish": 1,
     "publisher": [
       {
         "id": "xiushuang",
         "body": {
-          "catid": "23",
-          "typeid": "23",
+          "catid": "1099",
+          "typeid": "1099",
+          "remote": "0",
+          "status": "0"
+        },
+        "header": {
+        }
+      }
+    ]
+  },
+  {
+    "url": "http://wzry.duowan.com/tag/327319645493_7.html",
+    "name": "多玩_王者荣耀_新闻列表",
+    "collect": 1,
+    "publish": 1,
+    "publisher": [
+      {
+        "id": "xiushuang",
+        "body": {
+          "catid": "1099",
+          "typeid": "1099",
           "remote": "0",
           "status": "0"
         },

@@ -7,6 +7,7 @@ import (
 	"github.com/pingcap/tidb/_vendor/src/github.com/juju/errors"
 	"net/http"
 	"net/url"
+	"time"
 )
 
 const (
@@ -18,7 +19,7 @@ type XSPublish struct {
 }
 
 func (xs *XSPublish) Init(httpobj *rockgo.RockHttp, dbobj *db.ArticleObjDB) error {
-	xs.PublishObj.handleArticle = xs.handleArticle
+	xs.handleArticle = xs.handleArticleObj
 	err := dbobj.CreatePublishTab(XS_Name)
 	if err != nil {
 		return err
@@ -26,15 +27,18 @@ func (xs *XSPublish) Init(httpobj *rockgo.RockHttp, dbobj *db.ArticleObjDB) erro
 	return xs.PublishObj.Init(httpobj, dbobj)
 }
 
-func (xs *XSPublish) handleArticle(articleObj *obj.ArticleObj, taskObj *obj.TaskObj) error {
-
+func (xs *XSPublish) handleArticleObj(articleObj *obj.ArticleObj, taskObj *obj.TaskObj) error {
 	ok, err := xs.queryInsertArticlePublish(articleObj)
 	if err != nil {
+		xs.AddLog(rockgo.Log_Error, "添加文章到发布数据表错误", err.Error(), articleObj.Title)
 		return err
 	}
-	if !ok {
+
+	if ok {
+		xs.AddLog(rockgo.Log_Info, "文章已发布", articleObj.Title)
 		return nil
 	}
+
 	err = xs.postArticle(articleObj)
 	xs.updateArticlePubStatus(articleObj)
 	if err != nil {
@@ -43,7 +47,8 @@ func (xs *XSPublish) handleArticle(articleObj *obj.ArticleObj, taskObj *obj.Task
 	return nil
 }
 
-//查询文章发布状态,若不存在则添加，并对PubDBId赋值
+//查询文章发布状态,若不存在则添加，并对PubDBId赋值,
+//bool ,true=查询找到此文
 func (xs *XSPublish) queryInsertArticlePublish(articleObj *obj.ArticleObj) (bool, error) {
 	status, err := xs.DBObj.QueryArticlePublishStatus(XS_Name, articleObj)
 	if err != nil {
@@ -51,8 +56,7 @@ func (xs *XSPublish) queryInsertArticlePublish(articleObj *obj.ArticleObj) (bool
 	}
 
 	if status >= 20 && status < 30 {
-		xs.AddLog(rockgo.Log_Info, "文章重复_发布数据表", articleObj.Title, status)
-		return false, nil
+		return true, nil
 	}
 
 	if articleObj.Title == "" || articleObj.ContentHtml == "" {
@@ -69,27 +73,44 @@ func (xs *XSPublish) queryInsertArticlePublish(articleObj *obj.ArticleObj) (bool
 	if articleObj.PubStatusCode == obj.Status_PublishDataErr {
 		return false, errors.New("文章数据异常_无法发送_" + articleObj.Title + articleObj.SourceWebUrl + articleObj.Nickname)
 	}
+
 	return true, nil
 }
 
+//发布文章
 func (xs *XSPublish) postArticle(articleObj *obj.ArticleObj) (error) {
 	publisherArray := articleObj.TaskObj.Publisers
 
 	for _, item := range publisherArray {
-
 		header := http.Header{}
+
 		for key, value := range item.HeaderObj {
 			header.Set(key, value)
 		}
+
 		body := url.Values{}
 		for key, value := range item.BodyObj {
 			body.Set(key, value)
 		}
+
+		bodySource := body.Get("source")
+		if bodySource == "" {
+			body.Set("source", articleObj.SourceSiteName+"_"+articleObj.Nickname)
+		} else {
+			if articleObj.Nickname != "" {
+				body.Set("source", bodySource+"_"+articleObj.Nickname)
+			}
+		}
+
+		if articleObj.SourcePubtimestr == "" {
+			body.Set("pubdate", time.Now().Format("2006-01-02 15:04:05"))
+		} else {
+			body.Set("pubdate", articleObj.SourcePubtimestr)
+		}
+
 		body.Set("title", articleObj.Title)
 		body.Set("body", articleObj.ContentHtml)
-		body.Set("source", articleObj.SourceSiteName)
 		body.Set("picname", articleObj.ThumbnailsUrl)
-		body.Set("pubdate", articleObj.SourcePubtimestr)
 
 		_, err, response := xs.HttpObj.PostForm(item.Url, &header, body)
 		if err != nil {

@@ -123,7 +123,7 @@ func (objdb *ArticleObjDB) createArticleTab() error {
 
 //用户数据表
 func (objdb *ArticleObjDB) createUserTab() error {
-	sqlBUf := bytes.NewBufferString("CREATE TABLE IF NOT EXIST " + User_Tab + "(")
+	sqlBUf := bytes.NewBufferString("CREATE TABLE IF NOT EXISTS " + User_Tab + "(")
 	sqlBUf.WriteString(User_DBID + " INTEGER PRIMARY KEY AUTOINCREMENT,")
 	sqlBUf.WriteString(User_SourceId + " NCHAR(128) UNIQUE,")
 	sqlBUf.WriteString(User_Nickname + " NCHAR(128),")
@@ -192,10 +192,12 @@ func (objdb *ArticleObjDB) InsertArticleIfNotExist(article *obj.ArticleObj) (int
 //查询文章是否存在，dbid<0表示不存在
 func (objdb *ArticleObjDB) QueryExistedArticle(article *obj.ArticleObj) (dbid int64, err error) {
 
-	sqlstr := fmt.Sprint("SELECT "+Article_DBID, " FROM "+Article_Tab, " WHERE "+Article_SourceWebUrl+"=?;")
+	sqlstr := fmt.Sprint("SELECT "+Article_DBID+","+Article_ContentHtml, " FROM "+Article_Tab, " WHERE "+Article_SourceWebUrl+"=?;")
 	res := objdb.objDB.QueryRow(sqlstr, article.SourceWebUrl)
+	var contentHtml string
+	err = res.Scan(&dbid, &contentHtml)
 
-	err = res.Scan(&dbid)
+	article.ContentHtml = contentHtml
 	if err != nil {
 		dbid = -1
 		if err == sql.ErrNoRows {
@@ -238,7 +240,7 @@ func (objdb *ArticleObjDB) InsertArticlce(article *obj.ArticleObj) (int64, error
 
 //创建 发布记录数据表
 func (objdb *ArticleObjDB) CreatePublishTab(tabPre string) error {
-	sqlBUf := bytes.NewBufferString("CREATE TABLE IF NOT EXIST " + tabPre + Publish_Tab_Suffix + "(")
+	sqlBUf := bytes.NewBufferString("CREATE TABLE IF NOT EXISTS " + tabPre + Publish_Tab_Suffix + "(")
 	sqlBUf.WriteString(Publish_DBId + " INTEGER PRIMARY KEY AUTOINCREMENT,")
 	sqlBUf.WriteString(Publish_ArticleDBId + " INT,")
 	sqlBUf.WriteString(Publish_ArticleTitle + " NCHAR(128),")

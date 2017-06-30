@@ -5,6 +5,7 @@ import (
 	"github.com/xfort/rockgo"
 	"log"
 	"encoding/json"
+	"github.com/xfort/RockCrawler/publish"
 )
 
 func main() {
@@ -33,11 +34,24 @@ func startMiaoPai() {
 func startDuoWan() {
 	dwCrawler := &crawler.DuowanCrawler{}
 	dwCrawler.TypeName = "duowan"
-	err := dwCrawler.Init(rockgo.NewRockHttp(), nil)
+
+	rockhttp := rockgo.NewRockHttp()
+	xsPublisher := &publish.XSPublish{}
+	xsPublisher.HttpObj = rockhttp
+
+	dwCrawler.XSPublish = xsPublisher
+
+	err := dwCrawler.Init(rockhttp, nil)
 
 	if err != nil {
 		log.Fatalln(err)
 	}
+	err = xsPublisher.Init(rockhttp, dwCrawler.CoDB)
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	xsPublisher.Start()
 
 	dwCrawler.Start()
 	for {

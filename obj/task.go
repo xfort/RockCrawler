@@ -4,8 +4,6 @@ import (
 	"github.com/bitly/go-simplejson"
 	"errors"
 	"io/ioutil"
-	"encoding/json"
-	"log"
 )
 
 type TaskObj struct {
@@ -82,10 +80,10 @@ func ParseConfigFile(taskFile string, publisherFile string) ([]*TaskObj, error) 
 		}
 	}
 
-	if resByte, err := json.Marshal(publisherArray); err != nil || err == nil {
-		log.Println("publisher_array")
-		log.Println(string(resByte), err)
-	}
+	//if resByte, err := json.Marshal(publisherArray); err != nil || err == nil {
+	//	log.Println("publisher_array")
+	//	log.Println(string(resByte), err)
+	//}
 	return taskArray, nil
 }
 

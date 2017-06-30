@@ -19,7 +19,7 @@ type DuowanCrawler struct {
 
 func (dw *DuowanCrawler) Init(cohttp *rockgo.RockHttp, codb *db.ArticleObjDB) error {
 	dw.LoadArticles = dw.loadHomeArtiles
-	dw.CrawlerObj.PublishArticles = dw.publishArticles
+	dw.PublishArticles = dw.publishArticles
 	dw.XSPublish.AddLog = dw.AddLog
 	return dw.CrawlerObj.Init(cohttp, codb)
 }
@@ -38,20 +38,25 @@ func (dw *DuowanCrawler) loadHomeArtiles(task *obj.TaskObj) ([]*obj.ArticleObj, 
 	if articleArray == nil || len(articleArray) <= 0 {
 		return nil, rockgo.NewError("文章数组<=0", task.Name)
 	}
+
 	for _, item := range articleArray {
 		if item == nil {
 			continue
 		}
-		item, err = dw.loadArticleDetail(item)
-		if err != nil {
-			dw.AddLog(rockgo.Log_Error, "读取文章详情错误", err.Error(), task.Name, item.SourceWebUrl)
-		}
-		err = dw.insertArticle(item)
-		if err != nil {
-			dw.AddLog(rockgo.Log_Error, "添加文章到数据库错误", err.Error(), task.Name, item.SourceWebUrl)
+
+		if item.ContentHtml == "" {
+			item, err = dw.loadArticleDetail(item)
+			if err != nil {
+				dw.AddLog(rockgo.Log_Error, "读取文章详情错误", err.Error(), task.Name, item.SourceWebUrl)
+			}
+			err = dw.insertArticle(item)
+			if err != nil {
+				dw.AddLog(rockgo.Log_Error, "添加文章到数据库错误", err.Error(), task.Name, item.SourceWebUrl)
+			}
 		}
 		item.TaskObj = task
 	}
+
 	return articleArray, nil
 }
 
@@ -125,6 +130,7 @@ func (dw *DuowanCrawler) deleteDuplicateArticle(articleArray []*obj.ArticleObj) 
 
 		if item.SourceWebUrl == "" {
 			articleArray[index] = nil
+			dw.AddLog(rockgo.Log_Warn, "文章链接url为空", item.Title)
 			continue
 		}
 		if urlMap[item.SourceWebUrl] == 1 {
@@ -137,6 +143,11 @@ func (dw *DuowanCrawler) deleteDuplicateArticle(articleArray []*obj.ArticleObj) 
 		if err != nil && item.DBId <= 0 {
 			dw.AddLog(rockgo.Log_Error, "数据库查询文章是否存在发生错误", err.Error(), item.Title, item.SourceWebUrl, item.DBId)
 			continue
+		} else {
+			if item.DBId > 0 {
+				dw.AddLog(rockgo.Log_Info, "文章已存在_数据库", item.Title)
+				continue
+			}
 		}
 	}
 	urlMap = nil
@@ -211,6 +222,7 @@ func (dw *DuowanCrawler) loadArticleDetail(article *obj.ArticleObj) (*obj.Articl
 	}
 	article.ContentHtml = strings.TrimSpace(article.ContentHtml)
 	article.SourceHtml = ""
+	dw.AddLog(rockgo.Log_Info, "读取解析文章详细结束", article.Title)
 	return article, nil
 }
 
@@ -235,6 +247,11 @@ func (dw *DuowanCrawler) fixHtml(htmlNode *goquery.Selection) (string, error) {
 
 //发布文章
 func (dw *DuowanCrawler) publishArticles(articles []*obj.ArticleObj) error {
-	go dw.XSPublish.AddArticles(articles)
+	for index, item := range articles {
+		if item.Nickname == "小白狐" {
+			articles[index] = nil
+		}
+	}
+	//go dw.XSPublish.AddArticles(articles)
 	return nil
 }

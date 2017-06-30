@@ -93,6 +93,7 @@ func (co *CrawlerObj) readConfig() {
 	} else if tasksLen > 60 {
 		tasksLen = 60
 	}
+	tasksLen = 1
 	time.AfterFunc(time.Duration(tasksLen)*time.Minute, co.readConfig)
 }
 
@@ -121,6 +122,10 @@ func (co *CrawlerObj) startHandlerTask() {
 		if !ok {
 			break
 		}
+		if item.CollectCode == 0 {
+			co.AddLog(rockgo.Log_Info, "忽略此任务，标记为不采集", item.Name, item.TaskUrl)
+			continue
+		}
 
 		if co.LoadArticles == nil {
 			co.AddLog(rockgo.Log_Error, "执行任务错误，负责读取处理文章函数为空", item.Name, item.TaskUrl)
@@ -132,15 +137,19 @@ func (co *CrawlerObj) startHandlerTask() {
 		if err != nil {
 			co.AddLog(rockgo.Log_Error, "执行任务错误", err, item.Name, item.TaskUrl)
 		}
+		if item.PublishCode == 0 {
+			co.AddLog(rockgo.Log_Info, "不发布此任务文章，标记为不发布", item.Name, item.TaskUrl)
+			continue
+		}
 
 		if articleArray != nil && len(articleArray) > 0 {
 			if co.PublishArticles != nil {
+
 				err = co.PublishArticles(articleArray)
 				if err != nil {
-					co.AddLog(rockgo.Log_Error, "发布文章错误", err.Error())
+					co.AddLog(rockgo.Log_Error, "发布文章出现错误", err.Error())
 				}
 			}
-
 			//go co.sendRes(articleArray)
 		}
 	}
