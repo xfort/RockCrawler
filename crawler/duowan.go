@@ -248,7 +248,7 @@ func (dw *DuowanCrawler) fixHtml(htmlNode *goquery.Selection) (string, error) {
 //发布文章
 func (dw *DuowanCrawler) publishArticles(articles []*obj.ArticleObj) error {
 	for index, item := range articles {
-		if item.Nickname == "小白狐" {
+		if item.Nickname == "玉面小白狐" {
 			articles[index] = nil
 		}
 	}
