@@ -12,6 +12,7 @@ import (
 	"github.com/xfort/RockCrawler/publish"
 )
 
+//多玩，文章采集
 type DuowanCrawler struct {
 	CrawlerObj
 	XSPublish *publish.XSPublish
@@ -56,7 +57,6 @@ func (dw *DuowanCrawler) loadHomeArtiles(task *obj.TaskObj) ([]*obj.ArticleObj, 
 		}
 		item.TaskObj = task
 	}
-
 	return articleArray, nil
 }
 

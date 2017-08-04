@@ -247,9 +247,12 @@ func (mp *MiaopaiCrawler) LoadHomeData(urlstr string, user *obj.UserObj) (suid s
 	if err != nil {
 		return "", user, err
 	}
+
 	if user == nil {
 		user = obj.ObtainUserObj()
+		user = obj.ObtainUserObj()
 	}
+
 	user.HomeUrl = urlstr
 
 	user.Nickname = htmlDoc.Find("b.nick").First().Text()

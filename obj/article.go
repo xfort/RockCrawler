@@ -8,6 +8,9 @@ const (
 
 	Site_DuoWan      = "DuoWan"
 	Site_DuoWan_Code = 2
+
+	Site_QQKuaibao      = "QQKuaiBao"
+	Site_QQKuaibao_Code = 3
 )
 
 const (

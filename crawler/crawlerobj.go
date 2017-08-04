@@ -147,7 +147,7 @@ func (co *CrawlerObj) startHandlerTask() {
 
 				err = co.PublishArticles(articleArray)
 				if err != nil {
-					co.AddLog(rockgo.Log_Error, "发布文章出现错误", err.Error())
+					co.AddLog(rockgo.Log_Error, "发布文章出现错误", co.TypeName, err.Error())
 				}
 			}
 			//go co.sendRes(articleArray)
