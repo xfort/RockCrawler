@@ -11,6 +11,9 @@ const (
 
 	Site_QQKuaibao      = "QQKuaiBao"
 	Site_QQKuaibao_Code = 3
+
+	Site_UC      = "uc"
+	Site_UC_Code = 4
 )
 
 const (

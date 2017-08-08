@@ -92,6 +92,7 @@ func ParseTaskConfig(bytes []byte) ([]*TaskObj, error) {
 	if err != nil {
 		return nil, err
 	}
+	rootJson = rootJson.Get("tasks")
 	arrayLen := len(rootJson.MustArray())
 
 	if arrayLen <= 0 {
@@ -102,23 +103,30 @@ func ParseTaskConfig(bytes []byte) ([]*TaskObj, error) {
 	for index := 0; index < arrayLen; index++ {
 		itemJson := rootJson.GetIndex(index)
 		taskUrl := itemJson.Get("url").MustString()
-		publisherJson := itemJson.Get("publisher")
-		publiserLen := len(publisherJson.MustArray())
-		if publiserLen <= 0 || taskUrl == "" {
-			return nil, errors.New("解析任务文件错误,任务数据异常,url或publiser字段错误——" + itemJson.Get("name").MustString())
+
+		if taskUrl == "" {
+			return nil, errors.New("解析任务文件错误,任务数据异常,url字段错误——" + itemJson.Get("name").MustString())
 		}
 		taskObj := &TaskObj{}
 		taskObj.TaskUrl = taskUrl
 		taskObj.Name = itemJson.Get("name").MustString()
 		taskObj.CollectCode = itemJson.Get("collect").MustInt(1)
-		taskObj.PublishCode = itemJson.Get("publish").MustInt(0)
 
-		publisherArray, err := ParsePublishersJsonArray(publisherJson)
-		if err != nil {
-			return nil, err
+		taskObj.PublishCode = itemJson.Get("publish").MustInt(0)
+		if taskObj.PublishCode == 1 {
+			publisherJson := itemJson.Get("publisher")
+			publiserLen := len(publisherJson.MustArray())
+			if publiserLen <= 0 {
+				return nil, errors.New("解析任务文件错误,任务数据异常,publisher字段长度为空")
+			}
+
+			publisherArray, err := ParsePublishersJsonArray(publisherJson)
+			if err != nil {
+				return nil, err
+			}
+			taskObj.Publisers = publisherArray
 		}
 
-		taskObj.Publisers = publisherArray
 		taskArray = append(taskArray, taskObj)
 	}
 	return taskArray, nil

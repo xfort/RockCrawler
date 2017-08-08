@@ -4,10 +4,11 @@ import (
 	"github.com/xfort/rockgo"
 	"github.com/xfort/RockCrawler/db"
 	"github.com/xfort/RockCrawler/obj"
-	"os"
-	"path"
 	"time"
 	"log"
+	"fmt"
+	"errors"
+	"path/filepath"
 )
 
 type CrawlerObj struct {
@@ -17,10 +18,11 @@ type CrawlerObj struct {
 	sourceTaskChan chan *obj.TaskObj
 	outResChan     chan *obj.ArticleObj
 
-	TypeName string
-	execpath string
+	TypeName      string
+	DBDirPath     string
+	ConfigDirPath string
 
-	LoadArticles    LoadArticlesHandler
+	LoadArticles    LoadArticlesHandler //采集文章的具体实现
 	PublishArticles func([]*obj.ArticleObj) error
 }
 
@@ -32,17 +34,11 @@ func (co *CrawlerObj) AddLog(lv int, v ...interface{}) {
 }
 func (co *CrawlerObj) Init(cohttp *rockgo.RockHttp, codb *db.ArticleObjDB) error {
 
-	var err error
-	co.execpath, err = os.Getwd()
-	if err != nil {
-		return err
-	}
-
 	co.sourceTaskChan = make(chan *obj.TaskObj, 1024)
 	co.outResChan = make(chan *obj.ArticleObj, 20480)
 	co.CoHttp = cohttp
 	if codb == nil {
-		err = co.OpenDB()
+		err := co.OpenDB()
 		if err != nil {
 			return err
 		}
@@ -54,7 +50,7 @@ func (co *CrawlerObj) Init(cohttp *rockgo.RockHttp, codb *db.ArticleObjDB) error
 
 func (co *CrawlerObj) OpenDB() error {
 	co.CoDB = &db.ArticleObjDB{}
-	err := co.CoDB.OpenDB("sqlite3", path.Join(co.execpath, "data", co.TypeName+".db"))
+	err := co.CoDB.OpenDB("sqlite3", filepath.Join(co.DBDirPath, co.TypeName+".db"))
 	if err != nil {
 		return err
 	}
@@ -74,9 +70,9 @@ func (co *CrawlerObj) Start() {
 
 func (co *CrawlerObj) readConfig() {
 
-	configPath := path.Join(co.execpath, "config_"+co.TypeName+".json")
+	configPath := filepath.Join(co.ConfigDirPath, "config_"+co.TypeName+".json")
 
-	taskArray, err := obj.ParseConfigFile(configPath, path.Join(co.execpath, "publisher_config.json"))
+	taskArray, err := obj.ParseConfigFile(configPath, filepath.Join(co.ConfigDirPath, "publisher_config.json"))
 	if err != nil {
 		co.AddLog(rockgo.Log_Error, "读取解析配置文件错误", err.Error(), configPath)
 		time.AfterFunc(1*time.Minute, co.readConfig)
@@ -137,10 +133,10 @@ func (co *CrawlerObj) startHandlerTask() {
 		if err != nil {
 			co.AddLog(rockgo.Log_Error, "执行任务错误", err, item.Name, item.TaskUrl)
 		}
-		if item.PublishCode == 0 {
-			co.AddLog(rockgo.Log_Info, "不发布此任务文章，标记为不发布", item.Name, item.TaskUrl)
-			continue
-		}
+		//if item.PublishCode == 0 {
+		//	co.AddLog(rockgo.Log_Info, "不发布此任务文章，标记为不发布", item.Name, item.TaskUrl)
+		//	continue
+		//}
 
 		if articleArray != nil && len(articleArray) > 0 {
 			if co.PublishArticles != nil {
@@ -157,4 +153,8 @@ func (co *CrawlerObj) startHandlerTask() {
 
 func (co *CrawlerObj) StopNow() {
 	//TODO
+}
+
+func NewError(v ...interface{}) error {
+	return errors.New(fmt.Sprint(v))
 }

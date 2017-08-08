@@ -141,7 +141,7 @@ func (objdb *ArticleObjDB) createUserTab() error {
 	return err
 }
 
-//添加文章,如果文章不存在就添加
+//添加文章,如果文章不存在就添加,根据文章的SourceWebUrl判断文章是否相同
 //dbid,false=不存在
 func (objdb *ArticleObjDB) InsertArticleIfNotExist(article *obj.ArticleObj) (int64, bool, error) {
 
@@ -192,21 +192,24 @@ func (objdb *ArticleObjDB) InsertArticleIfNotExist(article *obj.ArticleObj) (int
 //查询文章是否存在，dbid<0表示不存在
 func (objdb *ArticleObjDB) QueryExistedArticle(article *obj.ArticleObj) (dbid int64, err error) {
 
-	sqlstr := fmt.Sprint("SELECT "+Article_DBID+","+Article_ContentHtml, " FROM "+Article_Tab, " WHERE "+Article_SourceWebUrl+"=?;")
+	sqlstr := fmt.Sprint("SELECT "+Article_DBID+","+Article_ContentHtml+","+Article_SourceHtml, " FROM "+Article_Tab, " WHERE "+Article_SourceWebUrl+"=?;")
 	res := objdb.objDB.QueryRow(sqlstr, article.SourceWebUrl)
+	var dbId int64
 	var contentHtml string
-	err = res.Scan(&dbid, &contentHtml)
+	var sourceHtml string
+	err = res.Scan(&dbId, &contentHtml, &sourceHtml)
 
-	article.ContentHtml = contentHtml
 	if err != nil {
-		dbid = -1
+		dbId = -1
 		if err == sql.ErrNoRows {
-			dbid = -1
-			return dbid, nil
+			return dbId, nil
 		}
-		return dbid, errors.New("查询文章是否存在失败," + sqlstr + article.SourceWebUrl + "_" + article.Title + err.Error())
+		return dbId, errors.New("查询文章是否存在失败," + sqlstr + article.SourceWebUrl + "_" + article.Title + err.Error())
 	}
-	return dbid, err
+	article.DBId = dbId
+	article.ContentHtml = contentHtml
+	article.SourceHtml = sourceHtml
+	return dbId, nil
 }
 
 func (objdb *ArticleObjDB) InsertArticlce(article *obj.ArticleObj) (int64, error) {
@@ -270,7 +273,7 @@ func (objdb *ArticleObjDB) QueryArticlePublishStatus(tabPre string, article *obj
 	res := objdb.objDB.QueryRow(sqlStr, article.DBId)
 	var pubId int64
 	var statusCode int
-	err = res.Scan(&pubId, &status)
+	err = res.Scan(&pubId, &statusCode)
 	article.PubDBId = pubId
 	if err != nil {
 		if err == sql.ErrNoRows {
@@ -278,6 +281,7 @@ func (objdb *ArticleObjDB) QueryArticlePublishStatus(tabPre string, article *obj
 		}
 		return 0, errors.New("查询文章发布状态错误_" + err.Error() + "_" + sqlStr)
 	}
+	//log.Println("文章状态查询", sqlStr)
 	return statusCode, nil
 }
 
