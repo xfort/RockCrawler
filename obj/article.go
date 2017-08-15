@@ -14,6 +14,9 @@ const (
 
 	Site_UC      = "uc"
 	Site_UC_Code = 4
+
+	Site_JinRiHL      = "JinRiTouTiao"
+	Site_JinRiHL_Code = 5
 )
 
 const (

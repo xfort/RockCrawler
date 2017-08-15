@@ -1,7 +1,7 @@
 {
   "tasks": [
     {
-      "home_url": "http://a.mp.uc.cn/media.html?mid=b0ae46038fe645cdb494b5ec454d494f&uc_biz_str=S:custom%7CC:iflow_ncmt&uc_param_str=frdnsnpfvecpntnwprdssskt&from=media",
+      "url": "http://a.mp.uc.cn/media.html?mid=b0ae46038fe645cdb494b5ec454d494f&uc_biz_str=S:custom%7CC:iflow_ncmt&uc_param_str=frdnsnpfvecpntnwprdssskt&from=media",
       "name": "荣耀助手",
       "collect": 1,
       "publish": 0

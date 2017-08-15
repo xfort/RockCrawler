@@ -2,15 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="68b06325-d07c-4b7d-acee-88e70f5f267d" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/config_uc.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/crawler/uc_test.go" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/GOPATH__RockCrawler_.xml" afterPath="$PROJECT_DIR$/.idea/libraries/GOPATH__RockCrawler_.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/config_JinRiTouTiao.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/crawler/jinriToutiao.go" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/crawler/jinriToutiao_test.go" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/GOPATH__RockCrawler_.xml" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crawler/crawlerobj.go" afterPath="$PROJECT_DIR$/crawler/crawlerobj.go" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crawler/uc.go" afterPath="$PROJECT_DIR$/crawler/uc.go" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config_uc.json" afterPath="$PROJECT_DIR$/config_uc.json" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db/article.go" afterPath="$PROJECT_DIR$/db/article.go" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/obj/article.go" afterPath="$PROJECT_DIR$/obj/article.go" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/obj/task.go" afterPath="$PROJECT_DIR$/obj/task.go" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -19,14 +18,13 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file leaf-file-name="crawlerobj.go" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/crawler/crawlerobj.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="546">
-              <caret line="92" column="41" lean-forward="false" selection-start-line="92" selection-start-column="33" selection-end-line="92" selection-end-column="41" />
+            <state relative-caret-position="138">
+              <caret line="25" column="4" lean-forward="false" selection-start-line="25" selection-start-column="4" selection-end-line="25" selection-end-column="4" />
               <folding>
                 <element signature="e#17#174#0" expanded="true" />
                 <marker date="1501918560000" expanded="true" signature="2867:2992" ph="..." />
@@ -35,43 +33,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="config.json" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/config.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="15" column="1" lean-forward="false" selection-start-line="15" selection-start-column="1" selection-end-line="15" selection-end-column="1" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="publisher_config.json" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/publisher_config.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="11" column="17" lean-forward="false" selection-start-line="11" selection-start-column="17" selection-end-line="11" selection-end-column="17" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="uc.go" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/crawler/uc.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="28">
-              <caret line="208" column="21" lean-forward="false" selection-start-line="208" selection-start-column="21" selection-end-line="208" selection-end-column="21" />
-              <folding>
-                <element signature="e#17#364#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="article.go" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/db/article.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="326">
-              <caret line="202" column="17" lean-forward="false" selection-start-line="202" selection-start-column="17" selection-end-line="202" selection-end-column="17" />
+            <state relative-caret-position="190">
+              <caret line="145" column="27" lean-forward="false" selection-start-line="145" selection-start-column="27" selection-end-line="145" selection-end-column="27" />
               <folding />
             </state>
           </provider>
@@ -80,8 +46,8 @@
       <file leaf-file-name="config_uc.json" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/config_uc.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="1" column="8" lean-forward="false" selection-start-line="1" selection-start-column="3" selection-end-line="1" selection-end-column="8" />
+            <state relative-caret-position="51">
+              <caret line="3" column="10" lean-forward="false" selection-start-line="3" selection-start-column="10" selection-end-line="3" selection-end-column="10" />
               <folding />
             </state>
           </provider>
@@ -97,22 +63,56 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="task.go" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/obj/task.go">
+      <file leaf-file-name="config_JinRiTouTiao.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/config_JinRiTouTiao.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1904">
-              <caret line="116" column="54" lean-forward="false" selection-start-line="116" selection-start-column="54" selection-end-line="116" selection-end-column="54" />
+            <state relative-caret-position="51">
+              <caret line="3" column="77" lean-forward="true" selection-start-line="3" selection-start-column="14" selection-end-line="3" selection-end-column="77" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="article.go" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/obj/article.go">
+      <file leaf-file-name="jinriToutiao.go" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/crawler/jinriToutiao.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="42" column="0" lean-forward="false" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
+            <state relative-caret-position="256">
+              <caret line="139" column="49" lean-forward="false" selection-start-line="139" selection-start-column="49" selection-end-line="139" selection-end-column="49" />
+              <folding>
+                <element signature="e#17#224#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="time.go" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../../../../../../sdk/go/src/time/time.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="228">
+              <caret line="1000" column="5" lean-forward="false" selection-start-line="1000" selection-start-column="5" selection-end-line="1000" selection-end-column="5" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="miaopai.go" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/crawler/miaopai.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="113">
+              <caret line="249" column="0" lean-forward="false" selection-start-line="249" selection-start-column="0" selection-end-line="249" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="jinriToutiao_test.go" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/crawler/jinriToutiao_test.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="442">
+              <caret line="26" column="29" lean-forward="false" selection-start-line="26" selection-start-column="29" selection-end-line="26" selection-end-column="29" />
+              <folding>
+                <element signature="e#17#117#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -139,15 +139,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>发布文章</find>
-      <find>QueryExistedArticle</find>
-      <find>publis</find>
-      <find>Exis</find>
-      <find>handleArticleObj</find>
-      <find>queryInsertArticlePublish</find>
-      <find>source</find>
-      <find>postArticle</find>
-      <find>deleteDuplicateArticle</find>
       <find>publishArticles</find>
       <find>sourceTaskChan</find>
       <find>Publish</find>
@@ -165,10 +156,19 @@
       <find>other_info</find>
       <find>read</find>
       <find>loadParseArticleDetail</find>
-      <find>ObtainArticleObj</find>
       <find>loadparse</find>
       <find>query</find>
       <find>Ex</find>
+      <find>has_video</find>
+      <find>display_url</find>
+      <find>loadArticlesDetail</find>
+      <find>DBDirPath</find>
+      <find>db.</find>
+      <find>parseArticlesData</find>
+      <find>JinRiTouTiao_Home_Url</find>
+      <find>20</find>
+      <find>Site</find>
+      <find>ObtainArticleObj</find>
     </findStrings>
     <replaceStrings>
       <replace>filepath.</replace>
@@ -196,13 +196,17 @@
         <option value="$PROJECT_DIR$/config_miaopai.json" />
         <option value="$PROJECT_DIR$/publish/xs.go" />
         <option value="$PROJECT_DIR$/crawler/qqkuaibao.go" />
-        <option value="$PROJECT_DIR$/config_uc.json" />
-        <option value="$PROJECT_DIR$/obj/article.go" />
         <option value="$PROJECT_DIR$/crawler/uc_test.go" />
         <option value="$PROJECT_DIR$/obj/task.go" />
         <option value="$PROJECT_DIR$/crawler/crawlerobj.go" />
         <option value="$PROJECT_DIR$/db/article.go" />
         <option value="$PROJECT_DIR$/crawler/uc.go" />
+        <option value="$PROJECT_DIR$/obj/article.go" />
+        <option value="$PROJECT_DIR$/config_JinriToutiao.json" />
+        <option value="$PROJECT_DIR$/config_JinRiTouTiao.json" />
+        <option value="$PROJECT_DIR$/config_uc.json" />
+        <option value="$PROJECT_DIR$/crawler/jinriToutiao_test.go" />
+        <option value="$PROJECT_DIR$/crawler/jinriToutiao.go" />
       </list>
     </option>
   </component>
@@ -234,90 +238,18 @@
     <panes>
       <pane id="ProjectPane">
         <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="RockCrawler" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="RockCrawler" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="RockCrawler" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="RockCrawler" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="obj" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="RockCrawler" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="RockCrawler" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="db" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="RockCrawler" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="RockCrawler" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="data" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="RockCrawler" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="RockCrawler" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="crawler" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="RockCrawler" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="RockCrawler" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="crawler" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="data" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
+          <expand>
+            <path>
+              <item name="RockCrawler" type="b2602c69:ProjectViewProjectNode" />
+              <item name="RockCrawler" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="RockCrawler" type="b2602c69:ProjectViewProjectNode" />
+              <item name="RockCrawler" type="462c0819:PsiDirectoryNode" />
+              <item name="crawler" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
         </subPane>
       </pane>
       <pane id="Scope" />
@@ -348,76 +280,35 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Go Test.uc_test.go">
-    <configuration default="false" name="miaopai_test.go" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true">
-      <module name="RockCrawler" />
-      <working_directory value="$PROJECT_DIR$/crawler" />
-      <go_parameters value="-i" />
-      <framework value="gotest" />
-      <kind value="FILE" />
-      <package value="github.com/xfort/RockCrawler" />
-      <filePath value="$PROJECT_DIR$/crawler/miaopai_test.go" />
-      <method />
-    </configuration>
-    <configuration default="false" name="go run main.go" type="GoRunFileConfiguration" factoryName="Go Single File" temporary="true">
-      <module name="RockCrawler" />
-      <working_directory value="$PROJECT_DIR$" />
-      <filePath value="$PROJECT_DIR$/main.go" />
-      <method />
-    </configuration>
-    <configuration default="false" name="duowan_test.go" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true">
-      <module name="RockCrawler" />
-      <working_directory value="$PROJECT_DIR$/crawler" />
-      <go_parameters value="-i" />
-      <framework value="gotest" />
-      <kind value="FILE" />
-      <package value="github.com/xfort/RockCrawler" />
-      <filePath value="$PROJECT_DIR$/crawler/duowan_test.go" />
-      <method />
-    </configuration>
-    <configuration default="false" name="task_test.go" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true">
-      <module name="RockCrawler" />
-      <working_directory value="$PROJECT_DIR$/obj" />
-      <go_parameters value="-i" />
-      <framework value="gotest" />
-      <kind value="FILE" />
-      <package value="github.com/xfort/RockCrawler" />
-      <filePath value="$PROJECT_DIR$/obj/task_test.go" />
-      <method />
-    </configuration>
-    <configuration default="false" name="uc_test.go" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true">
-      <module name="RockCrawler" />
-      <working_directory value="$PROJECT_DIR$/crawler" />
-      <go_parameters value="-i" />
-      <framework value="gotest" />
-      <kind value="FILE" />
-      <package value="github.com/xfort/RockCrawler" />
-      <filePath value="$PROJECT_DIR$/crawler/uc_test.go" />
-      <method />
-    </configuration>
+  <component name="RunManager" selected="Go Test.jinriToutiao_test.go">
     <configuration default="true" type="GoApplicationRunConfiguration" factoryName="Go Application">
-      <module name="" />
+      <module name="RockCrawler" />
       <working_directory value="$PROJECT_DIR$" />
       <go_parameters value="-i" />
       <filePath value="$PROJECT_DIR$" />
       <kind value="FILE" />
       <package value="github.com/xfort/RockCrawler" />
-      <method />
     </configuration>
     <configuration default="true" type="GoRunFileConfiguration" factoryName="Go Single File">
-      <module name="" />
+      <module name="RockCrawler" />
       <working_directory value="$PROJECT_DIR$" />
       <filePath value="$PROJECT_DIR$" />
-      <method />
     </configuration>
     <configuration default="true" type="GoTestRunConfiguration" factoryName="Go Test">
-      <module name="" />
+      <module name="RockCrawler" />
       <working_directory value="$PROJECT_DIR$" />
       <go_parameters value="-i" />
       <framework value="gotest" />
       <kind value="DIRECTORY" />
       <package value="github.com/xfort/RockCrawler" />
-      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <gulpfile />
+      <tasks />
+      <arguments />
+      <envs />
     </configuration>
     <configuration default="true" type="JavaScriptTestRunnerJest" factoryName="Jest">
       <node-interpreter value="project" />
@@ -435,15 +326,6 @@
     <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
       <method />
     </configuration>
-    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
-      <node-interpreter>project</node-interpreter>
-      <node-options />
-      <gulpfile />
-      <tasks />
-      <arguments />
-      <envs />
-      <method />
-    </configuration>
     <configuration default="true" type="js.build_tools.npm" factoryName="npm">
       <command value="run" />
       <scripts />
@@ -451,20 +333,61 @@
       <envs />
       <method />
     </configuration>
+    <configuration name="duowan_test.go" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true">
+      <module name="RockCrawler" />
+      <working_directory value="$PROJECT_DIR$/crawler" />
+      <go_parameters value="-i" />
+      <framework value="gotest" />
+      <kind value="FILE" />
+      <package value="github.com/xfort/RockCrawler" />
+      <filePath value="$PROJECT_DIR$/crawler/duowan_test.go" />
+    </configuration>
+    <configuration name="go run main.go" type="GoRunFileConfiguration" factoryName="Go Single File" temporary="true">
+      <module name="RockCrawler" />
+      <working_directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$/main.go" />
+    </configuration>
+    <configuration name="jinriToutiao_test.go" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true">
+      <module name="RockCrawler" />
+      <working_directory value="$PROJECT_DIR$/crawler" />
+      <go_parameters value="-i" />
+      <framework value="gotest" />
+      <kind value="FILE" />
+      <package value="github.com/xfort/RockCrawler" />
+      <filePath value="$PROJECT_DIR$/crawler/jinriToutiao_test.go" />
+    </configuration>
+    <configuration name="task_test.go" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true">
+      <module name="RockCrawler" />
+      <working_directory value="$PROJECT_DIR$/obj" />
+      <go_parameters value="-i" />
+      <framework value="gotest" />
+      <kind value="FILE" />
+      <package value="github.com/xfort/RockCrawler" />
+      <filePath value="$PROJECT_DIR$/obj/task_test.go" />
+    </configuration>
+    <configuration name="uc_test.go" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true">
+      <module name="RockCrawler" />
+      <working_directory value="$PROJECT_DIR$/crawler" />
+      <go_parameters value="-i" />
+      <framework value="gotest" />
+      <kind value="FILE" />
+      <package value="github.com/xfort/RockCrawler" />
+      <filePath value="$PROJECT_DIR$/crawler/uc_test.go" />
+    </configuration>
     <list size="5">
-      <item index="0" class="java.lang.String" itemvalue="Go Test.miaopai_test.go" />
-      <item index="1" class="java.lang.String" itemvalue="Go Single File.go run main.go" />
-      <item index="2" class="java.lang.String" itemvalue="Go Test.duowan_test.go" />
-      <item index="3" class="java.lang.String" itemvalue="Go Test.task_test.go" />
-      <item index="4" class="java.lang.String" itemvalue="Go Test.uc_test.go" />
+      <item index="0" class="java.lang.String" itemvalue="Go Single File.go run main.go" />
+      <item index="1" class="java.lang.String" itemvalue="Go Test.duowan_test.go" />
+      <item index="2" class="java.lang.String" itemvalue="Go Test.task_test.go" />
+      <item index="3" class="java.lang.String" itemvalue="Go Test.uc_test.go" />
+      <item index="4" class="java.lang.String" itemvalue="Go Test.jinriToutiao_test.go" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Go Test.uc_test.go" />
-        <item index="1" class="java.lang.String" itemvalue="Go Single File.go run main.go" />
-        <item index="2" class="java.lang.String" itemvalue="Go Test.task_test.go" />
-        <item index="3" class="java.lang.String" itemvalue="Go Test.duowan_test.go" />
-        <item index="4" class="java.lang.String" itemvalue="Go Test.miaopai_test.go" />
+        <item index="0" class="java.lang.String" itemvalue="Go Test.jinriToutiao_test.go" />
+        <item index="1" class="java.lang.String" itemvalue="Go Test.uc_test.go" />
+        <item index="2" class="java.lang.String" itemvalue="Go Single File.go run main.go" />
+        <item index="3" class="java.lang.String" itemvalue="Go Test.task_test.go" />
+        <item index="4" class="java.lang.String" itemvalue="Go Test.duowan_test.go" />
       </list>
     </recent_temporary>
   </component>
@@ -472,29 +395,29 @@
     <option name="remove_strategy" value="false" />
   </component>
   <component name="TestHistory">
-    <history-entry file="task_test_go - 2017.06.29 at 15h 03m 05s.xml">
-      <configuration name="task_test.go" configurationId="GoTestRunConfiguration" />
+    <history-entry file="jinriToutiao_test_go - 2017.08.15 at 09h 35m 45s.xml">
+      <configuration name="jinriToutiao_test.go" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="task_test_go - 2017.06.29 at 15h 03m 28s.xml">
-      <configuration name="task_test.go" configurationId="GoTestRunConfiguration" />
+    <history-entry file="jinriToutiao_test_go - 2017.08.15 at 09h 36m 18s.xml">
+      <configuration name="jinriToutiao_test.go" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="task_test_go - 2017.06.29 at 15h 03m 41s.xml">
-      <configuration name="task_test.go" configurationId="GoTestRunConfiguration" />
+    <history-entry file="jinriToutiao_test_go - 2017.08.15 at 09h 38m 47s.xml">
+      <configuration name="jinriToutiao_test.go" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="task_test_go - 2017.06.29 at 15h 04m 01s.xml">
-      <configuration name="task_test.go" configurationId="GoTestRunConfiguration" />
+    <history-entry file="jinriToutiao_test_go - 2017.08.15 at 09h 41m 41s.xml">
+      <configuration name="jinriToutiao_test.go" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="task_test_go - 2017.06.29 at 15h 10m 24s.xml">
-      <configuration name="task_test.go" configurationId="GoTestRunConfiguration" />
+    <history-entry file="jinriToutiao_test_go - 2017.08.15 at 09h 52m 38s.xml">
+      <configuration name="jinriToutiao_test.go" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="uc_test_go - 2017.08.04 at 17h 57m 38s.xml">
-      <configuration name="uc_test.go" configurationId="GoTestRunConfiguration" />
+    <history-entry file="jinriToutiao_test_go - 2017.08.15 at 10h 02m 44s.xml">
+      <configuration name="jinriToutiao_test.go" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="uc_test_go - 2017.08.04 at 18h 01m 19s.xml">
-      <configuration name="uc_test.go" configurationId="GoTestRunConfiguration" />
+    <history-entry file="jinriToutiao_test_go - 2017.08.15 at 10h 10m 06s.xml">
+      <configuration name="jinriToutiao_test.go" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="uc_test_go - 2017.08.04 at 18h 01m 45s.xml">
-      <configuration name="uc_test.go" configurationId="GoTestRunConfiguration" />
+    <history-entry file="jinriToutiao_test_go - 2017.08.15 at 10h 13m 31s.xml">
+      <configuration name="jinriToutiao_test.go" configurationId="GoTestRunConfiguration" />
     </history-entry>
     <history-entry file="uc_test_go - 2017.08.04 at 18h 02m 12s.xml">
       <configuration name="uc_test.go" configurationId="GoTestRunConfiguration" />
@@ -513,16 +436,17 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1440" height="806" extended-state="6" />
+    <frame x="0" y="23" width="1440" height="806" extended-state="0" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20916906" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22636104" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32914925" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32911393" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32913166" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34733894" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34599155" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32913166" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32911393" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -530,12 +454,11 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="processedProjectFiles" value="true" />
+    <option name="version" value="1" />
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
@@ -545,27 +468,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/obj/article.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="28" column="0" lean-forward="true" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/db/article.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2006">
-          <caret line="118" column="35" lean-forward="false" selection-start-line="118" selection-start-column="35" selection-end-line="118" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../../../../../sdk/go/src/bytes/buffer.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="6817">
-          <caret line="401" column="15" lean-forward="false" selection-start-line="401" selection-start-column="9" selection-end-line="401" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../../../../../../sdk/go/src/database/sql/sql.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="9639">
@@ -626,13 +528,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="334">
           <caret line="156" column="19" lean-forward="true" selection-start-line="156" selection-start-column="19" selection-end-line="156" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../../../../../sdk/go/src/time/time.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="230">
-          <caret line="440" column="5" lean-forward="false" selection-start-line="440" selection-start-column="5" selection-end-line="440" selection-end-column="5" />
         </state>
       </provider>
     </entry>
@@ -727,13 +622,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../../../../../lib/src/github.com/bitly/go-simplejson/simplejson.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="265" column="15" lean-forward="false" selection-start-line="265" selection-start-column="15" selection-end-line="265" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../../../../../../sdk/go/src/net/http/header.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="782">
@@ -783,18 +671,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/crawler/miaopai.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="113">
-          <caret line="249" column="0" lean-forward="false" selection-start-line="249" selection-start-column="0" selection-end-line="249" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/publish/xs.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2074">
           <caret line="130" column="14" lean-forward="false" selection-start-line="130" selection-start-column="14" selection-end-line="130" selection-end-column="14" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -809,9 +689,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-361">
           <caret line="21" column="49" lean-forward="false" selection-start-line="21" selection-start-column="49" selection-end-line="21" selection-end-column="49" />
-          <folding>
-            <element signature="e#17#147#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -819,9 +696,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
           <caret line="16" column="10" lean-forward="false" selection-start-line="16" selection-start-column="10" selection-end-line="16" selection-end-column="10" />
-          <folding>
-            <element signature="e#17#242#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -832,18 +706,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/crawler/uc_test.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="21" column="19" lean-forward="false" selection-start-line="21" selection-start-column="19" selection-end-line="21" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/config.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
           <caret line="15" column="1" lean-forward="false" selection-start-line="15" selection-start-column="1" selection-end-line="15" selection-end-column="1" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -851,14 +717,55 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
           <caret line="11" column="17" lean-forward="false" selection-start-line="11" selection-start-column="17" selection-end-line="11" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/obj/task.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1785">
+          <caret line="109" column="29" lean-forward="true" selection-start-line="109" selection-start-column="29" selection-end-line="109" selection-end-column="29" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/config_uc.json">
+    <entry file="file://$PROJECT_DIR$/../../../../../lib/src/github.com/bitly/go-simplejson/simplejson.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="8" lean-forward="false" selection-start-line="1" selection-start-column="3" selection-end-line="1" selection-end-column="8" />
+        <state relative-caret-position="3315">
+          <caret line="199" column="15" lean-forward="false" selection-start-line="199" selection-start-column="15" selection-end-line="199" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crawler/uc.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="434">
+          <caret line="26" column="25" lean-forward="true" selection-start-line="26" selection-start-column="25" selection-end-line="26" selection-end-column="25" />
+          <folding>
+            <element signature="e#17#364#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crawler/uc_test.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="21" column="19" lean-forward="false" selection-start-line="21" selection-start-column="19" selection-end-line="21" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/obj/article.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="17" column="37" lean-forward="false" selection-start-line="17" selection-start-column="25" selection-end-line="17" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crawler/miaopai.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="113">
+          <caret line="249" column="0" lean-forward="false" selection-start-line="249" selection-start-column="0" selection-end-line="249" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -871,14 +778,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/obj/task.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1904">
-          <caret line="116" column="54" lean-forward="false" selection-start-line="116" selection-start-column="54" selection-end-line="116" selection-end-column="54" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/config_duowan.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
@@ -887,18 +786,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/obj/article.go">
+    <entry file="file://$PROJECT_DIR$/config_uc.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="42" column="0" lean-forward="false" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
+        <state relative-caret-position="51">
+          <caret line="3" column="10" lean-forward="false" selection-start-line="3" selection-start-column="10" selection-end-line="3" selection-end-column="10" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/crawler/crawlerobj.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="546">
-          <caret line="92" column="41" lean-forward="false" selection-start-line="92" selection-start-column="33" selection-end-line="92" selection-end-column="41" />
+        <state relative-caret-position="138">
+          <caret line="25" column="4" lean-forward="false" selection-start-line="25" selection-start-column="4" selection-end-line="25" selection-end-column="4" />
           <folding>
             <element signature="e#17#174#0" expanded="true" />
             <marker date="1501918560000" expanded="true" signature="2867:2992" ph="..." />
@@ -908,18 +807,44 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/db/article.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="326">
-          <caret line="202" column="17" lean-forward="false" selection-start-line="202" selection-start-column="17" selection-end-line="202" selection-end-column="17" />
+        <state relative-caret-position="190">
+          <caret line="145" column="27" lean-forward="false" selection-start-line="145" selection-start-column="27" selection-end-line="145" selection-end-column="27" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/crawler/uc.go">
+    <entry file="file://$PROJECT_DIR$/config_JinRiTouTiao.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="28">
-          <caret line="208" column="21" lean-forward="false" selection-start-line="208" selection-start-column="21" selection-end-line="208" selection-end-column="21" />
+        <state relative-caret-position="51">
+          <caret line="3" column="77" lean-forward="true" selection-start-line="3" selection-start-column="14" selection-end-line="3" selection-end-column="77" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../../../../sdk/go/src/time/time.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="228">
+          <caret line="1000" column="5" lean-forward="false" selection-start-line="1000" selection-start-column="5" selection-end-line="1000" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crawler/jinriToutiao_test.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="442">
+          <caret line="26" column="29" lean-forward="false" selection-start-line="26" selection-start-column="29" selection-end-line="26" selection-end-column="29" />
           <folding>
-            <element signature="e#17#364#0" expanded="true" />
+            <element signature="e#17#117#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crawler/jinriToutiao.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="256">
+          <caret line="139" column="49" lean-forward="false" selection-start-line="139" selection-start-column="49" selection-end-line="139" selection-end-column="49" />
+          <folding>
+            <element signature="e#17#224#0" expanded="true" />
           </folding>
         </state>
       </provider>

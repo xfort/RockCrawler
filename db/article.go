@@ -261,14 +261,14 @@ func (objdb *ArticleObjDB) CreatePublishTab(tabPre string) error {
 	return nil
 }
 
-//查询文章发布状态,根据Article.DBId
+//查询文章发布状态,根据Article.Title
 func (objdb *ArticleObjDB) QueryArticlePublishStatus(tabPre string, article *obj.ArticleObj) (status int, err error) {
-	if article.DBId <= 0 {
-		return 0, rockgo.NewError("文章 dbid<=0", article.Title, article.DBId)
+	if article.Title == "" {
+		return 0, rockgo.NewError("文章title为空", article.SourceWebUrl, article.DBId)
 	}
-	sqlStr := "SELECT " + Publish_DBId + "," + Publish_Status
+	sqlStr := "SELECT " + Publish_DBId + "," + Publish_Status + "," + Publish_ArticleTitle
 	sqlStr = sqlStr + " FROM " + tabPre + Publish_Tab_Suffix
-	sqlStr = sqlStr + " WHERE " + Publish_ArticleDBId + "=?;"
+	sqlStr = sqlStr + " WHERE " + Publish_ArticleTitle + "='?';"
 
 	res := objdb.objDB.QueryRow(sqlStr, article.DBId)
 	var pubId int64
