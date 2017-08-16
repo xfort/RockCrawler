@@ -266,14 +266,15 @@ func (objdb *ArticleObjDB) QueryArticlePublishStatus(tabPre string, article *obj
 	if article.Title == "" {
 		return 0, rockgo.NewError("文章title为空", article.SourceWebUrl, article.DBId)
 	}
-	sqlStr := "SELECT " + Publish_DBId + "," + Publish_Status + "," + Publish_ArticleTitle
+	sqlStr := "SELECT " + Publish_DBId + "," + Publish_Status
 	sqlStr = sqlStr + " FROM " + tabPre + Publish_Tab_Suffix
-	sqlStr = sqlStr + " WHERE " + Publish_ArticleTitle + "='?';"
+	sqlStr = sqlStr + " WHERE " + Publish_ArticleTitle + "=?;"
 
-	res := objdb.objDB.QueryRow(sqlStr, article.DBId)
+	res := objdb.objDB.QueryRow(sqlStr, article.Title)
 	var pubId int64
 	var statusCode int
-	err = res.Scan(&pubId, &statusCode)
+
+	err = res.Scan(&pubId, &statusCode, )
 	article.PubDBId = pubId
 	if err != nil {
 		if err == sql.ErrNoRows {
