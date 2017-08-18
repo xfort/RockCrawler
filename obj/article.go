@@ -57,7 +57,8 @@ type ArticleObj struct {
 
 	TaskObj *TaskObj
 
-	PubDBId int64 //发布状态数据表的dbid
+	PubDBId         int64 //发布状态数据表的dbid
+	SourceViewCount int   //阅读数
 }
 
 type UserObj struct {

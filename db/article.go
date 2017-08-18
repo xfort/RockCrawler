@@ -274,7 +274,7 @@ func (objdb *ArticleObjDB) QueryArticlePublishStatus(tabPre string, article *obj
 	var pubId int64
 	var statusCode int
 
-	err = res.Scan(&pubId, &statusCode, )
+	err = res.Scan(&pubId, &statusCode)
 	article.PubDBId = pubId
 	if err != nil {
 		if err == sql.ErrNoRows {
