@@ -229,6 +229,13 @@ func (uc *UCCrawler) parseArticleDetail(resByte []byte, article *obj.ArticleObj)
 	if article.SourceId == "" {
 		article.SourceId = dataJson.Get("_id").MustString()
 	}
+	//if article.UserObj ==nil {
+	//	article.UserObj = obj.UserObj{}
+	//}
+	article.UserObj.SourceId = dataJson.Get("wm_id").MustString()
+	article.UserObj.Nickname = dataJson.Get("wm_name").MustString()
+
+	article.SourceViewCount = dataJson.GetPath("_incrs", "readtimes").MustInt()
 
 	if otherInfoJson, ok := dataJson.CheckGet("other_info"); ok {
 		article.VideoSrc = otherInfoJson.Get("video_playurl").MustString()

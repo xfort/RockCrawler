@@ -89,7 +89,7 @@ func (co *CrawlerObj) readConfig() {
 	} else if tasksLen > 60 {
 		tasksLen = 60
 	}
-	tasksLen = 1
+	//tasksLen = 1
 	time.AfterFunc(time.Duration(tasksLen)*time.Minute, co.readConfig)
 }
 

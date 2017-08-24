@@ -7,9 +7,14 @@ import (
 	"github.com/xfort/RockCrawler/obj"
 
 	_ "github.com/mattn/go-sqlite3"
+	"golang.org/x/net/context"
 )
 
-func TestArticleObjDB_QueryArticlePublishStatus(t *testing.T) {
+func TestArticleObjDB(t *testing.T) {
+
+	testArticleObjDB_QueryArticlesByUser()
+}
+func testArticleObjDB_QueryArticlePublishStatus() {
 
 	articleDB := &ArticleObjDB{}
 	err := articleDB.OpenDB("sqlite3", "/Users/xs/work/go/code/work/src/github.com/xfort/RockCrawler/data/wechat_game.db")
@@ -24,4 +29,21 @@ func TestArticleObjDB_QueryArticlePublishStatus(t *testing.T) {
 		log.Fatalln(err)
 	}
 	log.Println("结果", status)
+}
+
+func testArticleObjDB_QueryArticlesByUser() {
+	articleDB := &ArticleObjDB{}
+	err := articleDB.OpenDB("sqlite3", "/Users/xs/work/go/code/work/src/github.com/xfort/RockCrawler/data/uc.db")
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	articleList, user, err := articleDB.QueryArticlesByUser(context.TODO(), "122342344345", "122342344345")
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	log.Println(len(articleList), articleList[0].Title, articleList[99].Title)
+
+	log.Println(user)
 }

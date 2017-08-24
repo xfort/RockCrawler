@@ -8,6 +8,9 @@ import (
 
 	"github.com/xfort/RockCrawler/obj"
 	"errors"
+	"github.com/xfort/RockCrawler/proto"
+	"golang.org/x/net/context"
+	"log"
 )
 
 const (
@@ -71,6 +74,7 @@ func (objdb *ArticleObjDB) OpenDB(driverName, dataName string) error {
 		return err
 	}
 	objdb.dataname = dataName
+
 	return nil
 }
 
@@ -325,4 +329,41 @@ func (objdb *ArticleObjDB) UpdateArticlePublishStatus(tabPre string, articleObj 
 		return errors.New(err.Error() + "_" + articleObj.Title)
 	}
 	return nil
+}
+
+//查询作者文章，根据用户sourceId，或者accountnum
+func (objdb *ArticleObjDB) QueryArticlesByUser(ctx context.Context, userSourceId string, accountNum string) ([]*proto.ArticleObj, *proto.UserObj, error) {
+
+	sqlstr := fmt.Sprintf("SELECT %s,%s,%s,%s,%s,%s,%s,%s,%s,%s ", Article_DBID, Article_SourceID, Article_Title, Article_ContentHtml, Article_ThumbnailsUrl, Article_SourcePubtimestamp, Article_SourcePubtimestr, User_SourceId, User_Nickname, Article_SourceSiteName)
+	sqlstr = sqlstr + " FROM " + Article_Tab
+	sqlstr = sqlstr + " WHERE " + fmt.Sprintf("%s=? OR %s=?  order by %s desc LIMIT 100;", User_SourceId, User_SourceId, Article_DBID)
+
+	rows, err := objdb.objDB.QueryContext(ctx, sqlstr, userSourceId, accountNum)
+	if err != nil {
+		if rows != nil {
+			rows.Close()
+		}
+		return nil, nil, errors.New("查询用户的最近100篇文章失败_" + sqlstr + "_" + err.Error())
+	}
+	defer rows.Close()
+
+	user := proto.UserObj{}
+	var thumbnailsUrl string
+	var siteName string
+
+	resList := make([]*proto.ArticleObj, 0, 101)
+	for rows.Next() {
+		article := proto.ArticleObj{}
+
+		err := rows.Scan(&article.XsId, &article.SourceId, &article.Title, &article.ContentHtml, &thumbnailsUrl, &article.SourcePublishTimeUTCSec, &article.SourcePublishTimeStr, &user.SourceId, &user.Nickname, &siteName)
+		if err != nil {
+			log.Println("读取作者的100文章出错", err, sqlstr, userSourceId, )
+			continue
+		}
+		article.ThumbnailsUrl = []string{thumbnailsUrl}
+		article.SourceSiteName = siteName
+		user.SourceSitename = siteName
+		resList = append(resList, &article)
+	}
+	return resList, &user, nil
 }

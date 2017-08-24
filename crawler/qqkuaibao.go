@@ -14,7 +14,7 @@ type QQKuaibaoCrawler struct {
 	resArticlesChan chan *obj.ArticleObj
 }
 
-func (qqkb *QQKuaibaoCrawler) Init(rockhttp *rockgo.RockHttp, qqkbdb *db.ArticleObjDB) error {
+func (qqkb *QQKuaibaoCrawler) InitQQKB(rockhttp *rockgo.RockHttp, qqkbdb *db.ArticleObjDB) error {
 	qqkb.LoadArticles = qqkb.loadArticlesByTasks
 	qqkb.PublishArticles = qqkb.publishArticles
 
