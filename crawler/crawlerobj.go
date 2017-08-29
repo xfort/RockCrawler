@@ -129,10 +129,12 @@ func (co *CrawlerObj) startHandlerTask() {
 		}
 
 		articleArray, err := co.LoadArticles(item)
+		co.AddLog(rockgo.Log_Info, "采集结束", item.Name, "采集数据", len(articleArray))
 
 		if err != nil {
 			co.AddLog(rockgo.Log_Error, "执行任务错误", err, item.Name, item.TaskUrl)
 		}
+
 		//if item.PublishCode == 0 {
 		//	co.AddLog(rockgo.Log_Info, "不发布此任务文章，标记为不发布", item.Name, item.TaskUrl)
 		//	continue

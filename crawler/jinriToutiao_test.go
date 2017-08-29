@@ -26,7 +26,7 @@ func TestJRTouTiao(t *testing.T) {
 
 func JRPublish(articles []*obj.ArticleObj) error {
 	for _, item := range articles {
-		log.Println(item.Title)
+		log.Println(item.Title,item.UserObj.SourceId)
 	}
 	return nil
 }

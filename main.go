@@ -22,10 +22,11 @@ func main() {
 		}
 	}()
 	var err error
-	currentDir, err = filepath.Abs(filepath.Base(os.Args[0]))
+	currentDir, err = filepath.Abs(filepath.Dir(os.Args[0]))
 	if err != nil {
 		log.Fatalln("读取当前文件路径失败，终止运行")
 	}
+	//currentDir = filepath.Dir(currentDir)
 
 	//go startMiaoPai()
 	//go startDuoWan()

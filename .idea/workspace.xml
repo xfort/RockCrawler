@@ -2,19 +2,24 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="68b06325-d07c-4b7d-acee-88e70f5f267d" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/proto/xscrawlerserver.proto" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/client.go" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/server.go" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/server/server_test.go" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/crawler/data/uc.db" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/config_QQKuaiBao.json" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/duowan.db" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/miaopai.db" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/wechat_game.db" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data/JinRiTouTiao.db" afterPath="$PROJECT_DIR$/data/JinRiTouTiao.db" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data/uc.db" afterPath="$PROJECT_DIR$/data/uc.db" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config_miaopai.json" afterPath="$PROJECT_DIR$/config_miaopai.json" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crawler/crawlerobj.go" afterPath="$PROJECT_DIR$/crawler/crawlerobj.go" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crawler/jinriToutiao.go" afterPath="$PROJECT_DIR$/crawler/jinriToutiao.go" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crawler/jinriToutiao_test.go" afterPath="$PROJECT_DIR$/crawler/jinriToutiao_test.go" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crawler/qqkuaibao.go" afterPath="$PROJECT_DIR$/crawler/qqkuaibao.go" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crawler/uc.go" afterPath="$PROJECT_DIR$/crawler/uc.go" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crawler/uc_test.go" afterPath="$PROJECT_DIR$/crawler/uc_test.go" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db/article.go" afterPath="$PROJECT_DIR$/db/article.go" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db/article_test.go" afterPath="$PROJECT_DIR$/db/article_test.go" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.go" afterPath="$PROJECT_DIR$/main.go" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/server.go" afterPath="$PROJECT_DIR$/server/server.go" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server/server_test.go" afterPath="$PROJECT_DIR$/server/server_test.go" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -28,11 +33,9 @@
       <file leaf-file-name="server.go" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/server/server.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="336">
-              <caret line="39" column="58" lean-forward="true" selection-start-line="39" selection-start-column="58" selection-end-line="39" selection-end-column="58" />
-              <folding>
-                <element signature="e#16#191#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="435">
+              <caret line="61" column="54" lean-forward="true" selection-start-line="61" selection-start-column="54" selection-end-line="61" selection-end-column="54" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -40,42 +43,8 @@
       <file leaf-file-name="client.go" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/server/client.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="19" column="0" lean-forward="false" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
-              <folding>
-                <element signature="e#16#90#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="server_test.go" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/server/server_test.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="332">
-              <caret line="22" column="5" lean-forward="true" selection-start-line="19" selection-start-column="4" selection-end-line="22" selection-end-column="5" />
-              <folding>
-                <element signature="e#16#151#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="uc_test.go" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/crawler/uc_test.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="14" column="93" lean-forward="false" selection-start-line="14" selection-start-column="93" selection-end-line="14" selection-end-column="93" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="config_uc.json" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/config_uc.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="9" column="1" lean-forward="true" selection-start-line="9" selection-start-column="1" selection-end-line="9" selection-end-column="1" />
+            <state relative-caret-position="129">
+              <caret line="11" column="5" lean-forward="false" selection-start-line="11" selection-start-column="5" selection-end-line="11" selection-end-column="5" />
               <folding />
             </state>
           </provider>
@@ -84,28 +53,60 @@
       <file leaf-file-name="crawlerobj.go" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/crawler/crawlerobj.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="220">
-              <caret line="64" column="22" lean-forward="false" selection-start-line="64" selection-start-column="22" selection-end-line="64" selection-end-column="22" />
+            <state relative-caret-position="-240">
+              <caret line="121" column="39" lean-forward="true" selection-start-line="121" selection-start-column="39" selection-end-line="121" selection-end-column="39" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="uc.go" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/crawler/uc.go">
+      <file leaf-file-name="xscrawlerserver.pb.go" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/proto/xscrawlerserver.pb.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="24" column="21" lean-forward="false" selection-start-line="24" selection-start-column="21" selection-end-line="24" selection-end-column="21" />
+            <state relative-caret-position="88">
+              <caret line="438" column="4" lean-forward="false" selection-start-line="438" selection-start-column="4" selection-end-line="438" selection-end-column="4" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="config_JinRiTouTiao.json" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/config_JinRiTouTiao.json">
+      <file leaf-file-name="article.go" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/db/article.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="9" column="1" lean-forward="true" selection-start-line="9" selection-start-column="1" selection-end-line="9" selection-end-column="1" />
+            <state relative-caret-position="388">
+              <caret line="444" column="28" lean-forward="true" selection-start-line="444" selection-start-column="28" selection-end-line="444" selection-end-column="28" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="article_test.go" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/db/article_test.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="379">
+              <caret line="40" column="97" lean-forward="true" selection-start-line="40" selection-start-column="97" selection-end-line="40" selection-end-column="97" />
+              <folding>
+                <element signature="e#12#139#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="server_test.go" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server/server_test.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="391">
+              <caret line="30" column="35" lean-forward="false" selection-start-line="30" selection-start-column="35" selection-end-line="30" selection-end-column="35" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="jinriToutiao.go" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/crawler/jinriToutiao.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="425">
+              <caret line="37" column="5" lean-forward="true" selection-start-line="37" selection-start-column="5" selection-end-line="37" selection-end-column="5" />
               <folding />
             </state>
           </provider>
@@ -114,18 +115,18 @@
       <file leaf-file-name="main.go" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="441">
-              <caret line="133" column="5" lean-forward="true" selection-start-line="133" selection-start-column="5" selection-end-line="133" selection-end-column="5" />
+            <state relative-caret-position="442">
+              <caret line="36" column="29" lean-forward="false" selection-start-line="36" selection-start-column="29" selection-end-line="36" selection-end-column="29" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="qqkuaibao.go" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/crawler/qqkuaibao.go">
+      <file leaf-file-name="uc.go" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/crawler/uc.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="510">
-              <caret line="36" column="1" lean-forward="true" selection-start-line="36" selection-start-column="1" selection-end-line="36" selection-end-column="1" />
+            <state relative-caret-position="377">
+              <caret line="272" column="58" lean-forward="true" selection-start-line="272" selection-start-column="58" selection-end-line="272" selection-end-column="58" />
               <folding />
             </state>
           </provider>
@@ -143,36 +144,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>Ex</find>
-      <find>has_video</find>
-      <find>display_url</find>
-      <find>loadArticlesDetail</find>
-      <find>db.</find>
-      <find>parseArticlesData</find>
-      <find>JinRiTouTiao_Home_Url</find>
-      <find>20</find>
-      <find>Site</find>
-      <find>ObtainArticleObj</find>
-      <find>JinRiTouTiao_ArticleDetail_Url</find>
-      <find>omitempty</find>
-      <find>service</find>
-      <find>ResultArticlesList</find>
-      <find>Regi</find>
-      <find>Option</find>
-      <find>defaultMaxMsgSize</find>
-      <find>LoadArticlesByUser</find>
-      <find>Close</find>
       <find>json</find>
       <find>QueryArticle</find>
       <find>Query</find>
-      <find>SourceId</find>
       <find>Insert</find>
       <find>sqlite</find>
       <find>DBDirPath</find>
       <find>ConfigDirPath</find>
       <find>DBDir</find>
       <find>readConfig</find>
+      <find>Config</find>
+      <find>Base</find>
+      <find>LoadArticlesByUser</find>
+      <find>QueryArticlePublishStatus</find>
+      <find>Close</find>
+      <find>dataname</find>
+      <find>parseArticleSourceHtml</find>
+      <find>InsertArticleIfNotExistBySourceId</find>
+      <find>LoadArticleDetail</find>
+      <find>loadArticlesByTasks</find>
+      <find>currentDir</find>
       <find>publish</find>
+      <find>SourceId</find>
+      <find>loadArticlesData</find>
+      <find>62371792931</find>
+      <find>parseArticleDetail</find>
+      <find>loadArticleDetail</find>
+      <find>文章不存在</find>
+      <find>Publish</find>
+      <find>QueryArticlesByUser</find>
+      <find>sqlite3</find>
     </findStrings>
     <replaceStrings>
       <replace>filepath.</replace>
@@ -196,27 +197,28 @@
         <option value="$PROJECT_DIR$/config_duowan.json" />
         <option value="$PROJECT_DIR$/crawler/duowan.go" />
         <option value="$PROJECT_DIR$/crawler/miaopai.go" />
-        <option value="$PROJECT_DIR$/config_miaopai.json" />
         <option value="$PROJECT_DIR$/publish/xs.go" />
         <option value="$PROJECT_DIR$/obj/task.go" />
         <option value="$PROJECT_DIR$/config_JinriToutiao.json" />
         <option value="$PROJECT_DIR$/config_JinRiTouTiao.json" />
         <option value="$PROJECT_DIR$/config_uc.json" />
-        <option value="$PROJECT_DIR$/crawler/jinriToutiao_test.go" />
-        <option value="$PROJECT_DIR$/crawler/jinriToutiao.go" />
         <option value="$PROJECT_DIR$/obj/article.go" />
         <option value="$PROJECT_DIR$/proto/xscrawlerserver.proto" />
         <option value="$PROJECT_DIR$/proto/xscrawlerserver.pb.go" />
         <option value="$PROJECT_DIR$/server/client.go" />
-        <option value="$PROJECT_DIR$/db/article_test.go" />
-        <option value="$PROJECT_DIR$/db/article.go" />
-        <option value="$PROJECT_DIR$/server/server_test.go" />
         <option value="$PROJECT_DIR$/crawler/uc_test.go" />
-        <option value="$PROJECT_DIR$/crawler/uc.go" />
-        <option value="$PROJECT_DIR$/server/server.go" />
-        <option value="$PROJECT_DIR$/crawler/crawlerobj.go" />
         <option value="$PROJECT_DIR$/crawler/qqkuaibao.go" />
+        <option value="$PROJECT_DIR$/config_QQKuaiBao.json" />
+        <option value="$PROJECT_DIR$/config_miaopai.json" />
         <option value="$PROJECT_DIR$/main.go" />
+        <option value="$PROJECT_DIR$/crawler/jinriToutiao_test.go" />
+        <option value="$PROJECT_DIR$/crawler/jinriToutiao.go" />
+        <option value="$PROJECT_DIR$/crawler/uc.go" />
+        <option value="$PROJECT_DIR$/crawler/crawlerobj.go" />
+        <option value="$PROJECT_DIR$/server/server_test.go" />
+        <option value="$PROJECT_DIR$/db/article_test.go" />
+        <option value="$PROJECT_DIR$/server/server.go" />
+        <option value="$PROJECT_DIR$/db/article.go" />
       </list>
     </option>
   </component>
@@ -226,7 +228,7 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="y" value="23" />
     <option name="width" value="1440" />
     <option name="height" value="806" />
@@ -247,7 +249,6 @@
     </navigator>
     <panes>
       <pane id="Scope" />
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -259,11 +260,6 @@
               <item name="RockCrawler" type="b2602c69:ProjectViewProjectNode" />
               <item name="RockCrawler" type="462c0819:PsiDirectoryNode" />
               <item name="crawler" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="RockCrawler" type="b2602c69:ProjectViewProjectNode" />
-              <item name="RockCrawler" type="462c0819:PsiDirectoryNode" />
-              <item name="db" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="RockCrawler" type="b2602c69:ProjectViewProjectNode" />
@@ -289,6 +285,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -317,7 +314,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Go Test.uc_test.go">
+  <component name="RunManager" selected="Go Test.article_test.go">
     <configuration default="true" type="GoApplicationRunConfiguration" factoryName="Go Application">
       <module name="RockCrawler" />
       <working_directory value="$PROJECT_DIR$" />
@@ -420,9 +417,9 @@
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Go Test.uc_test.go" />
+        <item index="0" class="java.lang.String" itemvalue="Go Test.article_test.go" />
         <item index="1" class="java.lang.String" itemvalue="Go Test.server_test.go" />
-        <item index="2" class="java.lang.String" itemvalue="Go Test.article_test.go" />
+        <item index="2" class="java.lang.String" itemvalue="Go Test.uc_test.go" />
         <item index="3" class="java.lang.String" itemvalue="Go Test.jinriToutiao_test.go" />
         <item index="4" class="java.lang.String" itemvalue="Go Single File.go run main.go" />
       </list>
@@ -432,28 +429,28 @@
     <option name="remove_strategy" value="false" />
   </component>
   <component name="TestHistory">
-    <history-entry file="article_test_go - 2017.08.24 at 11h 31m 14s.xml">
+    <history-entry file="article_test_go - 2017.08.29 at 11h 55m 51s.xml">
       <configuration name="article_test.go" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="server_test_go - 2017.08.24 at 13h 51m 38s.xml">
-      <configuration name="server_test.go" configurationId="GoTestRunConfiguration" />
+    <history-entry file="article_test_go - 2017.08.29 at 11h 56m 07s.xml">
+      <configuration name="article_test.go" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="server_test_go - 2017.08.24 at 14h 01m 17s.xml">
-      <configuration name="server_test.go" configurationId="GoTestRunConfiguration" />
+    <history-entry file="article_test_go - 2017.08.29 at 13h 04m 24s.xml">
+      <configuration name="article_test.go" configurationId="GoTestRunConfiguration" />
     </history-entry>
-    <history-entry file="server_test_go - 2017.08.24 at 15h 02m 52s.xml">
-      <configuration name="server_test.go" configurationId="GoTestRunConfiguration" />
-    </history-entry>
-    <history-entry file="server_test_go - 2017.08.24 at 15h 03m 46s.xml">
-      <configuration name="server_test.go" configurationId="GoTestRunConfiguration" />
-    </history-entry>
-    <history-entry file="server_test_go - 2017.08.24 at 15h 06m 44s.xml">
-      <configuration name="server_test.go" configurationId="GoTestRunConfiguration" />
+    <history-entry file="article_test_go - 2017.08.29 at 13h 05m 57s.xml">
+      <configuration name="article_test.go" configurationId="GoTestRunConfiguration" />
     </history-entry>
     <history-entry file="server_test_go - 2017.08.24 at 15h 08m 19s.xml">
       <configuration name="server_test.go" configurationId="GoTestRunConfiguration" />
     </history-entry>
     <history-entry file="server_test_go - 2017.08.24 at 15h 08m 59s.xml">
+      <configuration name="server_test.go" configurationId="GoTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="server_test_go - 2017.08.29 at 11h 51m 13s.xml">
+      <configuration name="server_test.go" configurationId="GoTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="server_test_go - 2017.08.29 at 11h 51m 39s.xml">
       <configuration name="server_test.go" configurationId="GoTestRunConfiguration" />
     </history-entry>
     <history-entry file="uc_test_go - 2017.08.24 at 15h 21m 58s.xml">
@@ -473,25 +470,25 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1440" height="806" extended-state="0" />
+    <frame x="0" y="23" width="1440" height="806" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26146132" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27578798" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32914925" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32911393" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34599155" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32913166" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34599155" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32911393" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3994374" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32911393" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -506,13 +503,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/../../../../../../sdk/go/src/time/sleep.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="334">
-          <caret line="156" column="19" lean-forward="true" selection-start-line="156" selection-start-column="19" selection-end-line="156" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../../../../../../sdk/go/src/strings/strings.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="155">
@@ -674,20 +664,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/config_miaopai.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="6" lean-forward="false" selection-start-line="7" selection-start-column="6" selection-end-line="7" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config_duowan.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="19" column="4" lean-forward="false" selection-start-line="19" selection-start-column="4" selection-end-line="19" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../../../../../../sdk/go/src/time/time.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17000">
@@ -696,20 +672,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/crawler/jinriToutiao_test.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="26" column="29" lean-forward="false" selection-start-line="26" selection-start-column="29" selection-end-line="26" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/obj/task.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
           <caret line="2" column="7" lean-forward="false" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="7" />
-          <folding>
-            <element signature="e#13#80#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -717,7 +683,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1479">
           <caret line="113" column="4" lean-forward="false" selection-start-line="113" selection-start-column="4" selection-end-line="113" selection-end-column="4" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -725,38 +690,108 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="133">
           <caret line="687" column="8" lean-forward="false" selection-start-line="687" selection-start-column="3" selection-end-line="687" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../../../../sdk/go/src/database/sql/sql.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="798" column="5" lean-forward="false" selection-start-line="798" selection-start-column="5" selection-end-line="798" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/obj/task_test.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="12" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crawler/uc_test.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="14" column="93" lean-forward="false" selection-start-line="14" selection-start-column="93" selection-end-line="14" selection-end-column="93" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/proto/xscrawlerserver.proto">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1241">
+          <caret line="73" column="1" lean-forward="false" selection-start-line="73" selection-start-column="1" selection-end-line="73" selection-end-column="1" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/publish/publish.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="38" lean-forward="false" selection-start-line="7" selection-start-column="38" selection-end-line="7" selection-end-column="38" />
-          <folding />
+        <state relative-caret-position="17">
+          <caret line="13" column="28" lean-forward="false" selection-start-line="13" selection-start-column="28" selection-end-line="13" selection-end-column="28" />
+          <folding>
+            <element signature="e#17#132#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/publish/xs.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1717">
-          <caret line="108" column="9" lean-forward="true" selection-start-line="108" selection-start-column="9" selection-end-line="108" selection-end-column="9" />
+        <state relative-caret-position="242">
+          <caret line="108" column="9" lean-forward="false" selection-start-line="108" selection-start-column="9" selection-end-line="108" selection-end-column="9" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/crawler/jinriToutiao.go">
+    <entry file="file://$PROJECT_DIR$/config_duowan.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="29" column="17" lean-forward="false" selection-start-line="29" selection-start-column="17" selection-end-line="29" selection-end-column="17" />
+        <state relative-caret-position="255">
+          <caret line="19" column="4" lean-forward="false" selection-start-line="19" selection-start-column="4" selection-end-line="19" selection-end-column="4" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/proto/xscrawlerserver.proto">
+    <entry file="file://$PROJECT_DIR$/config_uc.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="464">
-          <caret line="71" column="25" lean-forward="true" selection-start-line="71" selection-start-column="25" selection-end-line="71" selection-end-column="25" />
+        <state relative-caret-position="170">
+          <caret line="9" column="1" lean-forward="false" selection-start-line="9" selection-start-column="1" selection-end-line="9" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crawler/qqkuaibao.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="30" column="30" lean-forward="false" selection-start-line="30" selection-start-column="30" selection-end-line="30" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config_QQKuaiBao.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="3" lean-forward="true" selection-start-line="8" selection-start-column="3" selection-end-line="8" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config_JinRiTouTiao.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="1" lean-forward="false" selection-start-line="9" selection-start-column="1" selection-end-line="9" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config_miaopai.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="18" column="18" lean-forward="false" selection-start-line="18" selection-start-column="18" selection-end-line="18" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crawler/jinriToutiao_test.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="28" column="40" lean-forward="false" selection-start-line="28" selection-start-column="40" selection-end-line="28" selection-end-column="40" />
           <folding />
         </state>
       </provider>
@@ -769,130 +804,84 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../../../../../../sdk/go/src/database/sql/sql.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="798" column="5" lean-forward="false" selection-start-line="798" selection-start-column="5" selection-end-line="798" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/obj/task_test.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="12" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/db/article_test.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="4" lean-forward="false" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/db/article.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="124">
-          <caret line="334" column="27" lean-forward="false" selection-start-line="334" selection-start-column="27" selection-end-line="334" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/proto/xscrawlerserver.pb.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="438" column="4" lean-forward="false" selection-start-line="438" selection-start-column="4" selection-end-line="438" selection-end-column="4" />
-          <folding>
-            <element signature="e#356#497#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config_uc.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="9" column="1" lean-forward="true" selection-start-line="9" selection-start-column="1" selection-end-line="9" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config_JinRiTouTiao.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="1" lean-forward="true" selection-start-line="9" selection-start-column="1" selection-end-line="9" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/client.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="19" column="0" lean-forward="false" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
-          <folding>
-            <element signature="e#16#90#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/server.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="39" column="58" lean-forward="true" selection-start-line="39" selection-start-column="58" selection-end-line="39" selection-end-column="58" />
-          <folding>
-            <element signature="e#16#191#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/server_test.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="332">
-          <caret line="22" column="5" lean-forward="true" selection-start-line="19" selection-start-column="4" selection-end-line="22" selection-end-column="5" />
-          <folding>
-            <element signature="e#16#151#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crawler/uc_test.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="14" column="93" lean-forward="false" selection-start-line="14" selection-start-column="93" selection-end-line="14" selection-end-column="93" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/crawler/uc.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="24" column="21" lean-forward="false" selection-start-line="24" selection-start-column="21" selection-end-line="24" selection-end-column="21" />
+        <state relative-caret-position="377">
+          <caret line="272" column="58" lean-forward="true" selection-start-line="272" selection-start-column="58" selection-end-line="272" selection-end-column="58" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crawler/jinriToutiao.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="37" column="5" lean-forward="true" selection-start-line="37" selection-start-column="5" selection-end-line="37" selection-end-column="5" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/crawler/crawlerobj.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="64" column="22" lean-forward="false" selection-start-line="64" selection-start-column="22" selection-end-line="64" selection-end-column="22" />
+        <state relative-caret-position="-240">
+          <caret line="121" column="39" lean-forward="true" selection-start-line="121" selection-start-column="39" selection-end-line="121" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/proto/xscrawlerserver.pb.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="88">
+          <caret line="438" column="4" lean-forward="false" selection-start-line="438" selection-start-column="4" selection-end-line="438" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/client.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="129">
+          <caret line="11" column="5" lean-forward="false" selection-start-line="11" selection-start-column="5" selection-end-line="11" selection-end-column="5" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/main.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="441">
-          <caret line="133" column="5" lean-forward="true" selection-start-line="133" selection-start-column="5" selection-end-line="133" selection-end-column="5" />
+        <state relative-caret-position="442">
+          <caret line="36" column="29" lean-forward="false" selection-start-line="36" selection-start-column="29" selection-end-line="36" selection-end-column="29" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/crawler/qqkuaibao.go">
+    <entry file="file://$PROJECT_DIR$/server/server_test.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="36" column="1" lean-forward="true" selection-start-line="36" selection-start-column="1" selection-end-line="36" selection-end-column="1" />
+        <state relative-caret-position="391">
+          <caret line="30" column="35" lean-forward="false" selection-start-line="30" selection-start-column="35" selection-end-line="30" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/db/article_test.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="379">
+          <caret line="40" column="97" lean-forward="true" selection-start-line="40" selection-start-column="97" selection-end-line="40" selection-end-column="97" />
+          <folding>
+            <element signature="e#12#139#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/server.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="435">
+          <caret line="61" column="54" lean-forward="true" selection-start-line="61" selection-start-column="54" selection-end-line="61" selection-end-column="54" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/db/article.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="388">
+          <caret line="444" column="28" lean-forward="true" selection-start-line="444" selection-start-column="28" selection-end-line="444" selection-end-column="28" />
           <folding />
         </state>
       </provider>

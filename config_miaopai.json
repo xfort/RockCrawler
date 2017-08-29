@@ -8,11 +8,15 @@
     },
     {
       "home_url": "http://www.yixia.com/u/paike_y3qar18r36",
-      "name": "甜甜CC"
+      "name": "甜甜CC",
+      "collect": 1,
+      "publish": 0
     },
     {
       "home_url": "http://www.yixia.com/u/paike_wplktq7jlb",
-      "name": "健身女王"
+      "name": "健身女王",
+      "collect": 1,
+      "publish": 0
     }
   ]
 }

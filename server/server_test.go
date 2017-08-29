@@ -28,9 +28,9 @@ func testGRPCClient() {
 	if err != nil {
 		log.Fatalln(err)
 	}
-	res, err := client.LoadArticlesByUser(context.TODO(), &proto.UserAct{User: &proto.UserObj{SourceId: "122342344345", SourceSitename: "uc"}})
+	res, err := client.LoadArticlesByUser(context.TODO(), &proto.UserAct{User: &proto.UserObj{SourceId: "5237828", SourceSitename: "QQKuaiBao"}})
 	if err != nil {
 		log.Fatalln("LoadArticlesByUser 异常", err)
 	}
-	log.Println(res)
+	log.Println(res.Errmsg)
 }

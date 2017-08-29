@@ -33,17 +33,17 @@ func testArticleObjDB_QueryArticlePublishStatus() {
 
 func testArticleObjDB_QueryArticlesByUser() {
 	articleDB := &ArticleObjDB{}
-	err := articleDB.OpenDB("sqlite3", "/Users/xs/work/go/code/work/src/github.com/xfort/RockCrawler/data/uc.db")
+	err := articleDB.OpenDB("sqlite3", "/Users/xs/work/go/code/work/src/github.com/xfort/RockCrawler/data/QQKuaiBao.db")
 	if err != nil {
 		log.Fatalln(err)
 	}
 
-	articleList, user, err := articleDB.QueryArticlesByUser(context.TODO(), "122342344345", "122342344345")
+	articleList, user, err := articleDB.QueryArticlesByUser(context.TODO(), "5237828", "5237828")
 	if err != nil {
 		log.Fatalln(err)
 	}
 
-	log.Println(len(articleList), articleList[0].Title, articleList[99].Title)
+	log.Println(len(articleList))
 
 	log.Println(user)
 }

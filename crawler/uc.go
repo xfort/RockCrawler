@@ -272,7 +272,7 @@ func (uc *UCCrawler) loadSaveArticleListDetail(appid string, articleList []*obj.
 		}
 		item.DBId, err = uc.CoDB.QueryExistedArticle(item)
 		if err != nil || item.ContentHtml == "" || item.DBId < 0 {
-			uc.AddLog(rockgo.Log_Warn, "文章不存在，准备采集", err, item.Title, item.SourceSiteName)
+			//uc.AddLog(rockgo.Log_Warn, "文章不存在，准备采集", err, item.Title, item.SourceSiteName)
 		}
 
 		if item.DBId > 0 && len(item.SourceHtml) > 0 {

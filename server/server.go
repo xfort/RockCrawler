@@ -41,16 +41,15 @@ func (cs *CrawlerServer) LoadArticlesByUser(ctx context.Context, useract *proto.
 	}
 	articleDB := cs.articleDBMap[useract.User.SourceSitename]
 	if articleDB == nil {
-		currentDir, err := filepath.Abs(filepath.Base(os.Args[0]))
+		currentDir, err := filepath.Abs(filepath.Dir(os.Args[0]))
 		if err != nil {
 			resData.Code = -50
 			resData.Errmsg = "无法读取数据库文件_" + err.Error()
 			return resData, nil
 		}
 		articleDB = &db.ArticleObjDB{}
-		dbpath := filepath.Join(currentDir, useract.User.SourceSitename+".db")
+		dbpath := filepath.Join(currentDir, "data", useract.User.SourceSitename+".db")
 
-		//dbpath = "/Users/xs/work/go/code/work/src/github.com/xfort/RockCrawler/data/uc.db"
 		err = articleDB.OpenDB("sqlite3", dbpath)
 		if err != nil {
 			resData.Code = -50

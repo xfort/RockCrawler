@@ -193,6 +193,54 @@ func (objdb *ArticleObjDB) InsertArticleIfNotExist(article *obj.ArticleObj) (int
 	return -1, false, nil
 }
 
+//添加文章,如果文章不存在就添加,根据文章的SourceWebUrl判断文章是否相同
+//dbid,false=不存在
+func (objdb *ArticleObjDB) InsertArticleIfNotExistBySourceId(article *obj.ArticleObj) (int64, bool, error) {
+
+	sqlStr := "INSERT INTO " + Article_Tab + "("
+	sqlStr = sqlStr + Article_SourceID + ","
+	sqlStr = sqlStr + Article_Title + ","
+	sqlStr = sqlStr + User_SourceId + ","
+	sqlStr = sqlStr + User_Nickname + ","
+	sqlStr = sqlStr + Article_ThumbnailsUrl + ","
+	sqlStr = sqlStr + Article_SourceHtml + ","
+	sqlStr = sqlStr + Article_ContentHtml + ","
+	sqlStr = sqlStr + Article_Des + ","
+	sqlStr = sqlStr + Article_SourceWebUrl + ","
+	sqlStr = sqlStr + Article_SourcePubtimestamp + ","
+	sqlStr = sqlStr + Article_SourcePubtimestr + ","
+	sqlStr = sqlStr + Article_SourceAuthor + ","
+	sqlStr = sqlStr + Article_SourceSiteTypeCode + ","
+	sqlStr = sqlStr + Article_SourceSiteName + ","
+	sqlStr = sqlStr + Article_ThumbnailsData + ","
+	sqlStr = sqlStr + Article_PubStatusCode + ","
+	sqlStr = sqlStr + Article_MediaData + ","
+	sqlStr = sqlStr + Article_VideoSrc
+	sqlStr = sqlStr + ") SELECT ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,? "
+	sqlStr = sqlStr + " WHERE NOT EXISTS(  "
+	sqlStr = sqlStr + " SELECT " + Article_DBID + " FROM " + Article_Tab + " WHERE " + Article_SourceID + "=?"
+	sqlStr = sqlStr + ")"
+
+	res, err := objdb.objDB.Exec(sqlStr, article.SourceId, article.Title, article.UserObj.SourceId, article.UserObj.Nickname, article.ThumbnailsUrl, article.SourceHtml, article.ContentHtml, article.Des, article.SourceWebUrl, article.SourcePubtimestamp, article.SourcePubtimestr, article.SourceAuthor, article.SourceSiteTypeCode, article.SourceSiteName, article.GetThumbnailsData(), article.PubStatusCode, article.GetMediaData(), article.VideoSrc, article.SourceId)
+	if err != nil {
+		return -1, false, errors.New(err.Error() + sqlStr)
+	}
+	dbid, err := res.LastInsertId()
+	if err != nil {
+		return -1, false, errors.New(err.Error() + sqlStr)
+	} else if dbid > 0 {
+		return dbid, false, nil
+	}
+	num, err := res.RowsAffected()
+	if err != nil {
+		return -1, false, errors.New(err.Error() + sqlStr)
+	}
+	if num == 0 { //已存在此文
+		return -1, true, nil
+	}
+	return -1, false, nil
+}
+
 //查询文章是否存在，dbid<0表示不存在
 func (objdb *ArticleObjDB) QueryExistedArticle(article *obj.ArticleObj) (dbid int64, err error) {
 
@@ -211,6 +259,29 @@ func (objdb *ArticleObjDB) QueryExistedArticle(article *obj.ArticleObj) (dbid in
 		return dbId, errors.New("查询文章是否存在失败," + sqlstr + article.SourceWebUrl + "_" + article.Title + err.Error())
 	}
 	article.DBId = dbId
+	article.ContentHtml = contentHtml
+	article.SourceHtml = sourceHtml
+	return dbId, nil
+}
+
+//查询文章是否存在，根据SourceId
+//dbid<0表示不存在
+func (objdb *ArticleObjDB) QueryArticleBySourceId(ctx context.Context, sourceId string, article *obj.ArticleObj) (dbid int64, err error) {
+	sqlstr := fmt.Sprint("SELECT "+Article_DBID+","+Article_ContentHtml+","+Article_SourceHtml, " FROM "+Article_Tab, " WHERE "+Article_SourceID+"=?;")
+	res := objdb.objDB.QueryRow(sqlstr, sourceId)
+	var dbId int64
+	var contentHtml string
+	var sourceHtml string
+	err = res.Scan(&dbId, &contentHtml, &sourceHtml)
+
+	if err != nil {
+		dbId = -1
+		if err == sql.ErrNoRows {
+			return dbId, nil
+		}
+		return dbId, errors.New("通过sourceID查询文章失败," + sqlstr + article.SourceWebUrl + "_" + article.Title + err.Error())
+	}
+	//article.DBId = dbId
 	article.ContentHtml = contentHtml
 	article.SourceHtml = sourceHtml
 	return dbId, nil
@@ -260,7 +331,7 @@ func (objdb *ArticleObjDB) CreatePublishTab(tabPre string) error {
 
 	_, err := objdb.objDB.Exec(sqlBUf.String())
 	if err != nil {
-		return rockgo.NewError("创建Publish数据表失败", err.Error(), sqlBUf.String())
+		return rockgo.NewError("创建Publish数据表失败", err.Error(), objdb.dataname, sqlBUf.String())
 	}
 	return nil
 }
@@ -288,6 +359,29 @@ func (objdb *ArticleObjDB) QueryArticlePublishStatus(tabPre string, article *obj
 	}
 	//log.Println("文章状态查询", sqlStr)
 	return statusCode, nil
+}
+
+//查询文章发布状态,根据title
+func (objdb *ArticleObjDB) QueryArticlePublishStatusByTitle(tabPre string, title string) (pubID int64, status int, err error) {
+
+	sqlStr := "SELECT " + Publish_DBId + "," + Publish_Status
+	sqlStr = sqlStr + " FROM " + tabPre + Publish_Tab_Suffix
+	sqlStr = sqlStr + " WHERE " + Publish_ArticleTitle + "=?;"
+
+	res := objdb.objDB.QueryRow(sqlStr, title)
+	var pubId int64
+	var statusCode int
+
+	err = res.Scan(&pubId, &statusCode)
+
+	if err != nil {
+		if err == sql.ErrNoRows {
+			return pubId, 0, nil
+		}
+		return pubId, 0, errors.New("查询文章发布状态错误_" + err.Error() + "_" + sqlStr)
+	}
+	//log.Println("文章状态查询", sqlStr)
+	return pubId, statusCode, nil
 }
 
 //添加文章发布状态
@@ -334,7 +428,7 @@ func (objdb *ArticleObjDB) UpdateArticlePublishStatus(tabPre string, articleObj 
 //查询作者文章，根据用户sourceId，或者accountnum
 func (objdb *ArticleObjDB) QueryArticlesByUser(ctx context.Context, userSourceId string, accountNum string) ([]*proto.ArticleObj, *proto.UserObj, error) {
 
-	sqlstr := fmt.Sprintf("SELECT %s,%s,%s,%s,%s,%s,%s,%s,%s,%s ", Article_DBID, Article_SourceID, Article_Title, Article_ContentHtml, Article_ThumbnailsUrl, Article_SourcePubtimestamp, Article_SourcePubtimestr, User_SourceId, User_Nickname, Article_SourceSiteName)
+	sqlstr := fmt.Sprintf("SELECT %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s ", Article_DBID, Article_SourceID, Article_Title, Article_ContentHtml, Article_ThumbnailsUrl, Article_SourcePubtimestamp, Article_SourcePubtimestr, User_SourceId, User_Nickname, Article_SourceSiteName, Article_SourceWebUrl)
 	sqlstr = sqlstr + " FROM " + Article_Tab
 	sqlstr = sqlstr + " WHERE " + fmt.Sprintf("%s=? OR %s=?  order by %s desc LIMIT 100;", User_SourceId, User_SourceId, Article_DBID)
 
@@ -343,7 +437,7 @@ func (objdb *ArticleObjDB) QueryArticlesByUser(ctx context.Context, userSourceId
 		if rows != nil {
 			rows.Close()
 		}
-		return nil, nil, errors.New("查询用户的最近100篇文章失败_" + sqlstr + "_" + err.Error())
+		return nil, nil, errors.New("查询用户的最近100篇文章失败_" + sqlstr + "_" + err.Error() + "——" + objdb.dataname)
 	}
 	defer rows.Close()
 
@@ -355,7 +449,7 @@ func (objdb *ArticleObjDB) QueryArticlesByUser(ctx context.Context, userSourceId
 	for rows.Next() {
 		article := proto.ArticleObj{}
 
-		err := rows.Scan(&article.XsId, &article.SourceId, &article.Title, &article.ContentHtml, &thumbnailsUrl, &article.SourcePublishTimeUTCSec, &article.SourcePublishTimeStr, &user.SourceId, &user.Nickname, &siteName)
+		err := rows.Scan(&article.XsId, &article.SourceId, &article.Title, &article.ContentHtml, &thumbnailsUrl, &article.SourcePublishTimeUTCSec, &article.SourcePublishTimeStr, &user.SourceId, &user.Nickname, &siteName, &article.SourceWebUrl)
 		if err != nil {
 			log.Println("读取作者的100文章出错", err, sqlstr, userSourceId, )
 			continue
@@ -366,4 +460,12 @@ func (objdb *ArticleObjDB) QueryArticlesByUser(ctx context.Context, userSourceId
 		resList = append(resList, &article)
 	}
 	return resList, &user, nil
+}
+func (articleDB *ArticleObjDB) Close() {
+	if articleDB.objDB != nil {
+		err := articleDB.objDB.Close()
+		if err != nil {
+			log.Println("关闭数据库失败", articleDB.dataname)
+		}
+	}
 }

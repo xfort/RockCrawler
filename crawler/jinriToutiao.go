@@ -32,29 +32,29 @@ func (jr *JinRiTouTiaoCrawler) InitJR(rockhttp *rockgo.RockHttp, articledb *db.A
 
 //采集主页文章
 func (jr *JinRiTouTiaoCrawler) loadJRArticles(taskObj *obj.TaskObj) ([]*obj.ArticleObj, error) {
-	dataJson, err := jr.loadArticlesData(taskObj.TaskUrl)
+	userId, dataJson, err := jr.loadArticlesData(taskObj.TaskUrl)
 	if err != nil {
 		return nil, err
 	}
-	artilceList, err := jr.parseArticlesData(dataJson)
+	artilceList, err := jr.parseArticlesData(userId, dataJson)
 	if err != nil {
 		return nil, err
 	}
-	artilceList, err = jr.loadArticleListDetail(artilceList)
+	artilceList, err = jr.loadArticleListDetail(userId, artilceList)
 	return artilceList, err
 }
 
 //读取主页一组文章数据
-func (jr *JinRiTouTiaoCrawler) loadArticlesData(homeUrl string) (*simplejson.Json, error) {
+func (jr *JinRiTouTiaoCrawler) loadArticlesData(homeUrl string) (string, *simplejson.Json, error) {
 	if homeUrl == "" {
-		return nil, errors.New("任务url为空")
+		return "", nil, errors.New("任务url为空")
 	}
 	userIdArray := regexp.MustCompile(`user/(.+?)/`).FindStringSubmatch(homeUrl)
 
 	userId := ""
 	if len(userIdArray) < 2 {
 		log.Println(userIdArray)
-		return nil, errors.New("提取userid失败," + homeUrl)
+		return "", nil, errors.New("提取userid失败," + homeUrl)
 	}
 
 	userId = userIdArray[1]
@@ -72,29 +72,29 @@ func (jr *JinRiTouTiaoCrawler) loadArticlesData(homeUrl string) (*simplejson.Jso
 	resBytes, err, response := jr.CoHttp.GetBytes(apiUrl, &header)
 
 	if err != nil {
-		return nil, errors.New("读取主页文章列表接口数据错误," + err.Error() + "_" + homeUrl)
+		return userId, nil, errors.New("读取主页文章列表接口数据错误," + err.Error() + "_" + homeUrl)
 	}
 
 	if response.StatusCode != 200 {
-		return nil, errors.New("读取主页文章列表接口数据异常,http状态码异常" + response.Status + "_" + homeUrl)
+		return userId, nil, errors.New("读取主页文章列表接口数据异常,http状态码异常" + response.Status + "_" + homeUrl)
 	}
 
 	dataJson, err := simplejson.NewJson(resBytes)
 	if err != nil {
-		return nil, errors.New("解析文章列表接口json数据错误，" + err.Error() + "_" + homeUrl)
+		return userId, nil, errors.New("解析文章列表接口json数据错误，" + err.Error() + "_" + homeUrl)
 	}
 
 	dataJson = dataJson.Get("data")
 	dataLen := len(dataJson.MustArray())
 
 	if dataLen <= 0 {
-		return nil, errors.New("文章列表接口json内data的长度为0," + string(resBytes) + "_" + apiUrl)
+		return userId, nil, errors.New("文章列表接口json内data的长度为0," + string(resBytes) + "_" + apiUrl)
 	}
-	return dataJson, nil
+	return userId, dataJson, nil
 }
 
 //解析文章列表数据
-func (jr *JinRiTouTiaoCrawler) parseArticlesData(dataJson *simplejson.Json) ([]*obj.ArticleObj, error) {
+func (jr *JinRiTouTiaoCrawler) parseArticlesData(userid string, dataJson *simplejson.Json) ([]*obj.ArticleObj, error) {
 	dataLen := len(dataJson.MustArray())
 	articleArray := make([]*obj.ArticleObj, 0, dataLen+1)
 	for index := 0; index < dataLen; index++ {
@@ -102,6 +102,7 @@ func (jr *JinRiTouTiaoCrawler) parseArticlesData(dataJson *simplejson.Json) ([]*
 		article := obj.ObtainArticleObj()
 		article.SourceSiteName = obj.Site_JinRiHL
 		article.SourceSiteTypeCode = obj.Site_JinRiHL_Code
+		article.UserObj.SourceId = userid
 
 		article.Title = item.Get("title").MustString()
 		article.ThumbnailsUrl = item.Get("image_url").MustString()
@@ -121,7 +122,7 @@ func (jr *JinRiTouTiaoCrawler) parseArticlesData(dataJson *simplejson.Json) ([]*
 }
 
 //读取文章内容
-func (jr *JinRiTouTiaoCrawler) loadArticleDetail(sourceid string, article *obj.ArticleObj) (*obj.ArticleObj, error) {
+func (jr *JinRiTouTiaoCrawler) loadArticleDetail(userid, sourceid string, article *obj.ArticleObj) (*obj.ArticleObj, error) {
 	detailUrl := fmt.Sprintf(JinRiTouTiao_ArticleDetail_Url, sourceid)
 
 	header := http.Header{}
@@ -130,15 +131,18 @@ func (jr *JinRiTouTiaoCrawler) loadArticleDetail(sourceid string, article *obj.A
 	if err != nil {
 		return article, err
 	}
-	return jr.parseArticleDetail(resBytes, article)
+	return jr.parseArticleDetail(userid, resBytes, article)
 }
 
 //解析文章内容
-func (jr *JinRiTouTiaoCrawler) parseArticleDetail(data []byte, article *obj.ArticleObj) (*obj.ArticleObj, error) {
+func (jr *JinRiTouTiaoCrawler) parseArticleDetail(userid string, data []byte, article *obj.ArticleObj) (*obj.ArticleObj, error) {
 	if article == nil {
 		article = obj.ObtainArticleObj()
 		article.SourceSiteName = obj.Site_JinRiHL
 		article.SourceSiteTypeCode = obj.Site_JinRiHL_Code
+	}
+	if article.UserObj.SourceId == "" {
+		article.UserObj.SourceId = userid
 	}
 	article.SourceHtml = string(data)
 	dataJson, err := simplejson.NewJson(data)
@@ -168,7 +172,7 @@ func (jr *JinRiTouTiaoCrawler) parseArticleDetail(data []byte, article *obj.Arti
 }
 
 //读取一组文章内容
-func (jr *JinRiTouTiaoCrawler) loadArticleListDetail(articleList []*obj.ArticleObj) ([]*obj.ArticleObj, error) {
+func (jr *JinRiTouTiaoCrawler) loadArticleListDetail(userid string, articleList []*obj.ArticleObj) ([]*obj.ArticleObj, error) {
 
 	if len(articleList) <= 0 {
 		return nil, errors.New("文章数量<=0")
@@ -182,14 +186,14 @@ func (jr *JinRiTouTiaoCrawler) loadArticleListDetail(articleList []*obj.ArticleO
 			jr.AddLog(rockgo.Log_Warn, "查询文章采集状态失败", err, item.Title)
 		}
 		if item.DBId > 0 && item.SourceHtml != "" {
-			item, err = jr.parseArticleDetail([]byte(item.SourceHtml), item)
+			item, err = jr.parseArticleDetail(userid, []byte(item.SourceHtml), item)
 			if err != nil {
 				jr.AddLog(rockgo.Log_Warn, "解析文章内容失败", item.Title, err)
 			}
 		}
 
 		if item.ContentHtml == "" {
-			item, err := jr.loadArticleDetail(item.SourceId, item)
+			item, err := jr.loadArticleDetail(userid, item.SourceId, item)
 			if err != nil {
 				jr.AddLog(rockgo.Log_Warn, "读取解析文章内容失败", item.Title, err)
 			}
