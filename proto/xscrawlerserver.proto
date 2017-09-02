@@ -2,6 +2,8 @@ syntax = "proto3";
 
 package proto;
 
+
+
 //文章数据
 message ArticleObj {
     sint64 xsId = 1; //在采集系统中的文章id
@@ -20,6 +22,7 @@ message ArticleObj {
     sint64 sourceViewNum = 30; //源网站阅读数
     sint64 sourceCommentNum = 31; //源网站评论数
     sint64 sourceLikeNum = 32; //源网站点赞数
+
 }
 
 //文章视频数据
