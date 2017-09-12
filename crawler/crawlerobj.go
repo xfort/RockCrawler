@@ -65,7 +65,6 @@ func (co *CrawlerObj) OpenDB() error {
 func (co *CrawlerObj) Start() {
 	go co.startHandlerTask()
 	co.readConfig()
-
 }
 
 func (co *CrawlerObj) readConfig() {

@@ -11,6 +11,7 @@ import (
 	"github.com/xfort/RockCrawler/proto"
 	"golang.org/x/net/context"
 	"log"
+	"time"
 )
 
 const (
@@ -241,7 +242,7 @@ func (objdb *ArticleObjDB) InsertArticleIfNotExistBySourceId(article *obj.Articl
 	return -1, false, nil
 }
 
-//查询文章是否存在，dbid<0表示不存在
+//查询文章是否存在，dbid<0表示不存在,根据文章的url地址
 func (objdb *ArticleObjDB) QueryExistedArticle(article *obj.ArticleObj) (dbid int64, err error) {
 
 	sqlstr := fmt.Sprint("SELECT "+Article_DBID+","+Article_ContentHtml+","+Article_SourceHtml, " FROM "+Article_Tab, " WHERE "+Article_SourceWebUrl+"=?;")
@@ -446,6 +447,7 @@ func (objdb *ArticleObjDB) QueryArticlesByUser(ctx context.Context, userSourceId
 	var siteName string
 
 	resList := make([]*proto.ArticleObj, 0, 101)
+
 	for rows.Next() {
 		article := proto.ArticleObj{}
 
@@ -468,4 +470,41 @@ func (articleDB *ArticleObjDB) Close() {
 			log.Println("关闭数据库失败", articleDB.dataname)
 		}
 	}
+}
+
+//查询账号的发布历史记录
+func (articleDB *ArticleObjDB) LoadAccountPublishArticles(accountName string) ([]*proto.ArticleObj, error) {
+
+	sqlStr := fmt.Sprintf("SELECT %s,%s,%s,%s From %s ORDER BY %s DESC LIMIT 60", Publish_DBId, Publish_ArticleTitle, Publish_ArticleSourceWebUrl, Publish_CreateTime, accountName+Publish_Tab_Suffix, Publish_DBId)
+
+	resRows, err := articleDB.objDB.Query(sqlStr)
+
+	if err != nil {
+		resRows.Close()
+		return nil, err
+	}
+	defer resRows.Close()
+
+	resArticles := make([]*proto.ArticleObj, 0, 60)
+
+	for resRows.Next() {
+		article := &proto.ArticleObj{}
+		var dateTime time.Time
+		err := resRows.Scan(&article.XsId, &article.Title, &article.SourceWebUrl, &dateTime)
+		if err != nil {
+			log.Println("读取文章发布数据错误", err, sqlStr)
+			continue
+		}
+		article.SourcePublishTimeUTCSec = dateTime.UTC().Unix()
+		resArticles = append(resArticles, article)
+	}
+	return resArticles, nil
+}
+
+///删除已发布文章记录
+func (articleDB *ArticleObjDB) DeletePublishedArticle(accountname string, articleId int64) error {
+
+	sqlStr := fmt.Sprintf("Delete From %s Where %s=?;", accountname+Publish_Tab_Suffix, Publish_DBId)
+	_, err := articleDB.objDB.Exec(sqlStr, articleId)
+	return err
 }

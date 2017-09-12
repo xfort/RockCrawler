@@ -7,10 +7,11 @@ import (
 )
 
 type TaskObj struct {
-	TaskUrl     string
-	Name        string
-	CollectCode int //采集标识，0=不采集，1=采集
-	PublishCode int //发布标识，0=不发布，1=发布
+	TaskUrl               string
+	Name                  string
+	CollectCode           int //采集标识，0=不采集，1=采集
+	PublishCode           int //发布标识，0=不发布，1=发布
+	LoadArticleDetailCode int //读取解析详情页标识，1=采集读取详情页数据
 
 	Publisers []*PublisherObj
 }
