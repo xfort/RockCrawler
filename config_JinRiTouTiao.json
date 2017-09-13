@@ -6,6 +6,13 @@
       "collect": 0,
       "publish": 0,
       "load_article_detail": 1
+    },
+    {
+      "url": "http://www.toutiao.com/c/user/3470174579/#mid=3473631781",
+      "name": "搞趣网",
+      "collect": 1,
+      "publish": 0,
+      "load_article_detail": 0
     }
   ]
 }

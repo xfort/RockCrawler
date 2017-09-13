@@ -489,13 +489,21 @@ func (articleDB *ArticleObjDB) LoadAccountPublishArticles(accountName string) ([
 
 	for resRows.Next() {
 		article := &proto.ArticleObj{}
-		var dateTime time.Time
-		err := resRows.Scan(&article.XsId, &article.Title, &article.SourceWebUrl, &dateTime)
+
+		var sqlDatetime string
+
+		err := resRows.Scan(&article.XsId, &article.Title, &article.SourceWebUrl, &sqlDatetime)
 		if err != nil {
 			log.Println("读取文章发布数据错误", err, sqlStr)
 			continue
 		}
-		article.SourcePublishTimeUTCSec = dateTime.UTC().Unix()
+
+		sqlTime, err := time.ParseInLocation("2006-01-02T15:04:05Z", sqlDatetime, time.Local)
+		if err != nil {
+			log.Println("解析sql的日期时间错误", err)
+		}
+
+		article.SourcePublishTimeUTCSec = sqlTime.UTC().Unix()
 		resArticles = append(resArticles, article)
 	}
 	return resArticles, nil

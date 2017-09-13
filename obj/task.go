@@ -127,6 +127,7 @@ func ParseTaskConfig(bytes []byte) ([]*TaskObj, error) {
 			}
 			taskObj.Publisers = publisherArray
 		}
+		taskObj.LoadArticleDetailCode = itemJson.Get("load_article_detail").MustInt(0)
 
 		taskArray = append(taskArray, taskObj)
 	}
