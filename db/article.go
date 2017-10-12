@@ -429,7 +429,7 @@ func (objdb *ArticleObjDB) UpdateArticlePublishStatus(tabPre string, articleObj 
 //查询作者文章，根据用户sourceId，或者accountnum
 func (objdb *ArticleObjDB) QueryArticlesByUser(ctx context.Context, userSourceId string, accountNum string) ([]*proto.ArticleObj, *proto.UserObj, error) {
 
-	sqlstr := fmt.Sprintf("SELECT %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s ", Article_DBID, Article_SourceID, Article_Title, Article_ContentHtml, Article_ThumbnailsUrl, Article_SourcePubtimestamp, Article_SourcePubtimestr, User_SourceId, User_Nickname, Article_SourceSiteName, Article_SourceWebUrl)
+	sqlstr := fmt.Sprintf("SELECT %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s ", Article_DBID, Article_SourceID, Article_Title, Article_ContentHtml, Article_ThumbnailsUrl, Article_SourcePubtimestamp, Article_SourcePubtimestr, User_SourceId, User_Nickname, Article_SourceSiteName, Article_SourceWebUrl, Article_VideoSrc)
 	sqlstr = sqlstr + " FROM " + Article_Tab
 	sqlstr = sqlstr + " WHERE " + fmt.Sprintf("%s=? OR %s=?  order by %s desc LIMIT 100;", User_SourceId, User_SourceId, Article_DBID)
 
@@ -449,9 +449,9 @@ func (objdb *ArticleObjDB) QueryArticlesByUser(ctx context.Context, userSourceId
 	resList := make([]*proto.ArticleObj, 0, 101)
 
 	for rows.Next() {
-		article := proto.ArticleObj{}
+		article := proto.ArticleObj{Media: &proto.ArticleMediaObj{}}
 
-		err := rows.Scan(&article.XsId, &article.SourceId, &article.Title, &article.ContentHtml, &thumbnailsUrl, &article.SourcePublishTimeUTCSec, &article.SourcePublishTimeStr, &user.SourceId, &user.Nickname, &siteName, &article.SourceWebUrl)
+		err := rows.Scan(&article.XsId, &article.SourceId, &article.Title, &article.ContentHtml, &thumbnailsUrl, &article.SourcePublishTimeUTCSec, &article.SourcePublishTimeStr, &user.SourceId, &user.Nickname, &siteName, &article.SourceWebUrl, &article.Media.VideoSrc)
 		if err != nil {
 			log.Println("读取作者的100文章出错", err, sqlstr, userSourceId, )
 			continue

@@ -1,18 +1,11 @@
 {
   "tasks": [
     {
-      "url": "http://www.toutiao.com/c/user/62371792931/#mid=1570906550244354",
-      "name": "大灰狼与小白兔",
-      "collect": 0,
-      "publish": 0,
-      "load_article_detail": 1
-    },
-    {
-      "url": "http://www.toutiao.com/c/user/3470174579/#mid=3473631781",
-      "name": "搞趣网",
+      "url": "http://www.toutiao.com/c/user/3312133591/#mid=3312139881",
+      "name": "秀爽游戏",
       "collect": 1,
       "publish": 0,
-      "load_article_detail": 0
+      "load_article_detail": 1
     }
   ]
 }

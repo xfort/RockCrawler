@@ -12,6 +12,7 @@ import (
 	"github.com/bitly/go-simplejson"
 	"fmt"
 	"time"
+	"strconv"
 )
 
 const (
@@ -32,20 +33,38 @@ func (jr *JinRiTouTiaoCrawler) InitJR(rockhttp *rockgo.RockHttp, articledb *db.A
 
 //采集主页文章
 func (jr *JinRiTouTiaoCrawler) loadJRArticles(taskObj *obj.TaskObj) ([]*obj.ArticleObj, error) {
-	userId, dataJson, err := jr.loadArticlesData(taskObj.TaskUrl)
+	userId, resJson, err := jr.loadArticlesData(taskObj.TaskUrl, "")
 	if err != nil {
 		return nil, err
 	}
+	dataJson := resJson.Get("data")
 	artilceList, err := jr.parseArticlesData(userId, dataJson)
 	if err != nil {
 		return nil, err
 	}
+	nextMaxBehotTime := resJson.GetPath("next", "max_behot_time").MustInt64(0)
+
+	if nextMaxBehotTime > 0 {
+		userId, resJson, err := jr.loadArticlesData(taskObj.TaskUrl, strconv.FormatInt(nextMaxBehotTime, 10))
+		if err != nil {
+			return nil, err
+		}
+		dataJson := resJson.Get("data")
+		artilceListTmp, err := jr.parseArticlesData(userId, dataJson)
+		if err != nil {
+			return nil, err
+		}
+		if len(artilceListTmp) > 0 {
+			artilceList = append(artilceList, artilceListTmp...)
+		}
+	}
+
 	artilceList, err = jr.loadArticleListDetail(userId, artilceList)
 	return artilceList, err
 }
 
 //读取主页一组文章数据
-func (jr *JinRiTouTiaoCrawler) loadArticlesData(homeUrl string) (string, *simplejson.Json, error) {
+func (jr *JinRiTouTiaoCrawler) loadArticlesData(homeUrl string, maxbehotTime string) (string, *simplejson.Json, error) {
 	if homeUrl == "" {
 		return "", nil, errors.New("任务url为空")
 	}
@@ -58,11 +77,14 @@ func (jr *JinRiTouTiaoCrawler) loadArticlesData(homeUrl string) (string, *simple
 	}
 
 	userId = userIdArray[1]
+	if maxbehotTime == "" {
+		maxbehotTime = "0"
+	}
 
 	urlValue := url.Values{}
 	urlValue.Set("page_type", "1")
 	urlValue.Set("user_id", userId)
-	urlValue.Set("max_behot_time", "0")
+	urlValue.Set("max_behot_time", maxbehotTime)
 	urlValue.Set("count", "30")
 
 	apiUrl := JinRiTouTiao_Home_Url + urlValue.Encode()
@@ -79,18 +101,19 @@ func (jr *JinRiTouTiaoCrawler) loadArticlesData(homeUrl string) (string, *simple
 		return userId, nil, errors.New("读取主页文章列表接口数据异常,http状态码异常" + response.Status + "_" + homeUrl)
 	}
 
-	dataJson, err := simplejson.NewJson(resBytes)
+	resJson, err := simplejson.NewJson(resBytes)
 	if err != nil {
 		return userId, nil, errors.New("解析文章列表接口json数据错误，" + err.Error() + "_" + homeUrl)
 	}
 
-	dataJson = dataJson.Get("data")
+	dataJson := resJson.Get("data")
 	dataLen := len(dataJson.MustArray())
 
 	if dataLen <= 0 {
 		return userId, nil, errors.New("文章列表接口json内data的长度为0," + string(resBytes) + "_" + apiUrl)
 	}
-	return userId, dataJson, nil
+
+	return userId, resJson, nil
 }
 
 //解析文章列表数据
