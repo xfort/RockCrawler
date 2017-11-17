@@ -206,19 +206,19 @@ func (jr *JinRiTouTiaoCrawler) loadArticleListDetail(userid string, articleList 
 
 		item.DBId, err = jr.CoDB.QueryExistedArticle(item)
 		if err != nil {
-			jr.AddLog(rockgo.Log_Warn, "查询文章采集状态失败", err, item.Title)
+			jr.AddLog(5, "查询文章采集状态失败", err, item.Title)
 		}
 		if item.DBId > 0 && item.SourceHtml != "" {
 			item, err = jr.parseArticleDetail(userid, []byte(item.SourceHtml), item)
 			if err != nil {
-				jr.AddLog(rockgo.Log_Warn, "解析文章内容失败", item.Title, err)
+				jr.AddLog(5, "解析文章内容失败", item.Title, err)
 			}
 		}
 
 		if item.ContentHtml == "" {
 			item, err := jr.loadArticleDetail(userid, item.SourceId, item)
 			if err != nil {
-				jr.AddLog(rockgo.Log_Warn, "读取解析文章内容失败", item.Title, err)
+				jr.AddLog(5, "读取解析文章内容失败", item.Title, err)
 			}
 		}
 		if item.Title != "" && item.ContentHtml != "" {
@@ -227,7 +227,7 @@ func (jr *JinRiTouTiaoCrawler) loadArticleListDetail(userid string, articleList 
 			if item.DBId <= 0 {
 				item.DBId, _, err = jr.CoDB.InsertArticleIfNotExist(item)
 				if err != nil {
-					jr.AddLog(rockgo.Log_Warn, "保存头条文章到数据库失败", item.Title)
+					jr.AddLog(5, "保存头条文章到数据库失败", item.Title)
 				}
 			}
 		}

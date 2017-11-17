@@ -33,7 +33,7 @@ func (dw *DuowanCrawler) loadHomeArtiles(task *obj.TaskObj) ([]*obj.ArticleObj, 
 
 	articleArray, err = dw.deleteDuplicateArticle(articleArray)
 	if err != nil {
-		dw.AddLog(rockgo.Log_Error, "文章去重错误", err.Error())
+		dw.AddLog(6, "文章去重错误", err.Error())
 	}
 
 	if articleArray == nil || len(articleArray) <= 0 {
@@ -48,11 +48,11 @@ func (dw *DuowanCrawler) loadHomeArtiles(task *obj.TaskObj) ([]*obj.ArticleObj, 
 		if item.ContentHtml == "" {
 			item, err = dw.loadArticleDetail(item)
 			if err != nil {
-				dw.AddLog(rockgo.Log_Error, "读取文章详情错误", err.Error(), task.Name, item.SourceWebUrl)
+				dw.AddLog(6, "读取文章详情错误", err.Error(), task.Name, item.SourceWebUrl)
 			}
 			err = dw.insertArticle(item)
 			if err != nil {
-				dw.AddLog(rockgo.Log_Error, "添加文章到数据库错误", err.Error(), task.Name, item.SourceWebUrl)
+				dw.AddLog(6, "添加文章到数据库错误", err.Error(), task.Name, item.SourceWebUrl)
 			}
 		}
 		item.TaskObj = task
@@ -97,7 +97,7 @@ func (dw *DuowanCrawler) loadArticleList(urlstr string) ([]*obj.ArticleObj, erro
 
 		article, err = dw.parseItemNode(itemNode, article, taskURL.Scheme+"://"+taskURL.Host)
 		if err != nil {
-			dw.AddLog(rockgo.Log_Warn, "解析文章html元素错误", err.Error(), urlstr)
+			dw.AddLog(5, "解析文章html元素错误", err.Error(), urlstr)
 		}
 		articleArray = append(articleArray, article)
 	}
@@ -130,7 +130,7 @@ func (dw *DuowanCrawler) deleteDuplicateArticle(articleArray []*obj.ArticleObj) 
 
 		if item.SourceWebUrl == "" {
 			articleArray[index] = nil
-			dw.AddLog(rockgo.Log_Warn, "文章链接url为空", item.Title)
+			dw.AddLog(5, "文章链接url为空", item.Title)
 			continue
 		}
 		if urlMap[item.SourceWebUrl] == 1 {
@@ -141,11 +141,11 @@ func (dw *DuowanCrawler) deleteDuplicateArticle(articleArray []*obj.ArticleObj) 
 
 		item.DBId, err = dw.CoDB.QueryExistedArticle(item)
 		if err != nil && item.DBId <= 0 {
-			dw.AddLog(rockgo.Log_Error, "数据库查询文章是否存在发生错误", err.Error(), item.Title, item.SourceWebUrl, item.DBId)
+			dw.AddLog(6, "数据库查询文章是否存在发生错误", err.Error(), item.Title, item.SourceWebUrl, item.DBId)
 			continue
 		} else {
 			if item.DBId > 0 {
-				dw.AddLog(rockgo.Log_Info, "文章已存在_数据库", item.Title)
+				dw.AddLog(4, "文章已存在_数据库", item.Title)
 				continue
 			}
 		}
@@ -222,7 +222,7 @@ func (dw *DuowanCrawler) loadArticleDetail(article *obj.ArticleObj) (*obj.Articl
 	}
 	article.ContentHtml = strings.TrimSpace(article.ContentHtml)
 	article.SourceHtml = ""
-	dw.AddLog(rockgo.Log_Info, "读取解析文章详细结束", article.Title)
+	dw.AddLog(4, "读取解析文章详细结束", article.Title)
 	return article, nil
 }
 

@@ -4,10 +4,11 @@ import (
 	"github.com/xfort/RockCrawler/obj"
 	"github.com/xfort/rockgo"
 	"github.com/xfort/RockCrawler/db"
-	"github.com/pingcap/tidb/_vendor/src/github.com/juju/errors"
+
 	"net/http"
 	"net/url"
 	"time"
+	"errors"
 )
 
 const (
@@ -30,12 +31,12 @@ func (xs *XSPublish) Init(httpobj *rockgo.RockHttp, dbobj *db.ArticleObjDB) erro
 func (xs *XSPublish) handleArticleObj(articleObj *obj.ArticleObj, taskObj *obj.TaskObj) error {
 	ok, err := xs.queryInsertArticlePublish(articleObj)
 	if err != nil {
-		xs.AddLog(rockgo.Log_Error, "添加文章到发布数据表错误", err.Error(), articleObj.Title)
+		xs.AddLog(5, "添加文章到发布数据表错误", err.Error(), articleObj.Title)
 		return err
 	}
 
 	if ok {
-		xs.AddLog(rockgo.Log_Info, "文章已发布", articleObj.Title)
+		xs.AddLog(3, "文章已发布", articleObj.Title)
 		return nil
 	}
 
@@ -114,18 +115,18 @@ func (xs *XSPublish) postArticle(articleObj *obj.ArticleObj) (error) {
 
 		_, err, response := xs.HttpObj.PostForm(item.Url, &header, body)
 		if err != nil {
-			xs.AddLog(rockgo.Log_Error, "发布文章错误", articleObj.Title, err.Error(), articleObj.SourceWebUrl)
+			xs.AddLog(5, "发布文章错误", articleObj.Title, err.Error(), articleObj.SourceWebUrl)
 			articleObj.PubStatusCode = obj.Status_PublishFail
 		} else if response.StatusCode != 200 {
-			xs.AddLog(rockgo.Log_Error, "发布文章错误,http状态码!=200", articleObj.Title, response.Status, articleObj.SourceWebUrl)
+			xs.AddLog(5, "发布文章错误,http状态码!=200", articleObj.Title, response.Status, articleObj.SourceWebUrl)
 			articleObj.PubStatusCode = obj.Status_PublishFail
 		} else {
-			xs.AddLog(rockgo.Log_Info, "发布文章成功", articleObj.Title)
+			xs.AddLog(3, "发布文章成功", articleObj.Title)
 			articleObj.PubStatusCode = obj.Status_PublishSuccess
 		}
 		err = xs.updateArticlePubStatus(articleObj)
 		if err != nil {
-			xs.AddLog(rockgo.Log_Warn, "更新文章发布状态 错误", articleObj.Title, err.Error())
+			xs.AddLog(4, "更新文章发布状态 错误", articleObj.Title, err.Error())
 		}
 	}
 	return nil

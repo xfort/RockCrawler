@@ -4,7 +4,7 @@ import (
 	"github.com/xfort/RockCrawler/obj"
 	"github.com/xfort/rockgo"
 	"github.com/xfort/RockCrawler/db"
-	"github.com/pingcap/tidb/_vendor/src/github.com/juju/errors"
+	"errors"
 	"strings"
 	"github.com/robertkrimen/otto"
 	"github.com/PuerkitoBio/goquery"
@@ -267,12 +267,12 @@ func (uc *UCCrawler) loadSaveArticleListDetail(appid string, articleList []*obj.
 	var err error
 	for _, item := range articleList {
 		if item.SourceId == "" {
-			uc.AddLog(rockgo.Log_Warn, "文章sourceId为空无法采集", item.Title, item.SourceSiteName)
+			uc.AddLog(5, "文章sourceId为空无法采集", item.Title, item.SourceSiteName)
 			continue
 		}
 		item.DBId, err = uc.CoDB.QueryExistedArticle(item)
 		if err != nil || item.ContentHtml == "" || item.DBId < 0 {
-			//uc.AddLog(rockgo.Log_Warn, "文章不存在，准备采集", err, item.Title, item.SourceSiteName)
+			//uc.AddLog(5, "文章不存在，准备采集", err, item.Title, item.SourceSiteName)
 		}
 
 		if item.DBId > 0 && len(item.SourceHtml) > 0 {
@@ -285,13 +285,13 @@ func (uc *UCCrawler) loadSaveArticleListDetail(appid string, articleList []*obj.
 
 		item, err = uc.loadParseArticleDetail(item.SourceId, appid, item)
 		if err != nil {
-			uc.AddLog(rockgo.Log_Warn, "读取解析文章内容出现错误", item.Title, item.SourceSiteName, item.SourceWebUrl, err)
+			uc.AddLog(5, "读取解析文章内容出现错误", item.Title, item.SourceSiteName, item.SourceWebUrl, err)
 			continue
 		}
 
 		err = uc.saveArticle(item)
 		if err != nil {
-			uc.AddLog(rockgo.Log_Warn, "保存文章数据时出现错误", item.Title, item.SourceSiteName, item.SourceWebUrl, err)
+			uc.AddLog(5, "保存文章数据时出现错误", item.Title, item.SourceSiteName, item.SourceWebUrl, err)
 		}
 		resArray = append(resArray, item)
 	}

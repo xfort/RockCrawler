@@ -46,7 +46,7 @@ func (mp *MiaopaiCrawler) Init(rockhttp *rockgo.RockHttp, objdb *db.ArticleObjDB
 	if objdb == nil {
 		err := mp.OpenDB()
 		if err != nil {
-			mp.AddLog(rockgo.Log_Error, "秒拍数据库初始化失败", err)
+			mp.AddLog(6, "秒拍数据库初始化失败", err)
 			return err
 		}
 	} else {
@@ -77,13 +77,13 @@ func (mp *MiaopaiCrawler) Start() {
 func (mp *MiaopaiCrawler) readConfig() {
 	configByte, err := ioutil.ReadFile(path.Join(mp.execpath, "config_miaopai.json"))
 	if err != nil {
-		mp.AddLog(rockgo.Log_Error, "读取配置文件错误", path.Join(mp.execpath, "config_miaopai.json"))
+		mp.AddLog(6, "读取配置文件错误", path.Join(mp.execpath, "config_miaopai.json"))
 		time.AfterFunc(1*time.Minute, mp.readConfig)
 		return
 	}
 	configjson, err := simplejson.NewJson(configByte)
 	if err != nil {
-		mp.AddLog(rockgo.Log_Error, "解析配置文件为json错误", path.Join(mp.execpath, "config_miaopai.json"), err)
+		mp.AddLog(6, "解析配置文件为json错误", path.Join(mp.execpath, "config_miaopai.json"), err)
 		time.AfterFunc(1*time.Minute, mp.readConfig)
 		return
 	}
@@ -92,7 +92,7 @@ func (mp *MiaopaiCrawler) readConfig() {
 	array := tasksJson.MustArray()
 	lenArray := len(array)
 	if lenArray <= 0 {
-		mp.AddLog(rockgo.Log_Error, "配置文件为json数组为0", path.Join(mp.execpath, "config_miaopai.json"))
+		mp.AddLog(6, "配置文件为json数组为0", path.Join(mp.execpath, "config_miaopai.json"))
 		time.AfterFunc(1*time.Minute, mp.readConfig)
 		return
 	}
@@ -101,7 +101,7 @@ func (mp *MiaopaiCrawler) readConfig() {
 		item := tasksJson.GetIndex(index)
 		homeUrl := item.Get("home_url").MustString()
 		if homeUrl == "" {
-			mp.AddLog(rockgo.Log_Warn, "配置文件内home_url为空", path.Join(mp.execpath, "config_miaopai.json"))
+			mp.AddLog(5, "配置文件内home_url为空", path.Join(mp.execpath, "config_miaopai.json"))
 			continue
 		}
 		mp.AddTaskHomeUrl(homeUrl)
@@ -124,7 +124,7 @@ func (mp *MiaopaiCrawler) startHandlerTasks() {
 		}
 		articleArray, _, err := mp.LoadHomeArticles(homeUrl)
 		if err != nil {
-			mp.AddLog(rockgo.Log_Error, "解析主页错误", homeUrl, err)
+			mp.AddLog(6, "解析主页错误", homeUrl, err)
 		}
 		go mp.sendRes(articleArray)
 	}
@@ -142,7 +142,7 @@ func (mp *MiaopaiCrawler) sendRes(articleArray []*obj.ArticleObj) {
 		if item.DBId < 0 {
 			item.DBId, err = mp.MPDB.QueryExistedArticle(item)
 			if err != nil {
-				mp.AddLog(rockgo.Log_Warn, "读取文章dbid错误", item.DBId, err.Error(), item.Title)
+				mp.AddLog(5, "读取文章dbid错误", item.DBId, err.Error(), item.Title)
 			}
 		}
 		mp.outResChan <- item
@@ -177,7 +177,7 @@ func (mp *MiaopaiCrawler) LoadHomeArticles(urlstr string) ([]*obj.ArticleObj, *o
 	arrayLen := len(articleArray)
 	//var exists bool
 	if arrayLen <= 0 {
-		mp.AddLog(rockgo.Log_Error, "文章列表为空", urlstr)
+		mp.AddLog(6, "文章列表为空", urlstr)
 		return articleArray, user, rockgo.NewError("文章列表为空", urlstr)
 	}
 
@@ -187,35 +187,35 @@ func (mp *MiaopaiCrawler) LoadHomeArticles(urlstr string) ([]*obj.ArticleObj, *o
 
 		item.DBId, err = mp.MPDB.QueryExistedArticle(item)
 		if err != nil {
-			mp.AddLog(rockgo.Log_Error, "查询文章是否存在错误", item.Title, item.Nickname, err.Error())
+			mp.AddLog(6, "查询文章是否存在错误", item.Title, item.Nickname, err.Error())
 			err = nil
 		}
 		if item.DBId > 0 {
 			//数据库存在此文
-			mp.AddLog(rockgo.Log_Info, "数据库已存在此文", item.Title, item.Nickname)
+			mp.AddLog(4, "数据库已存在此文", item.Title, item.Nickname)
 			continue
 		}
-		mp.AddLog(rockgo.Log_Info, "数据库无此文", item.Title, item.Nickname, item.DBId)
+		mp.AddLog(4, "数据库无此文", item.Title, item.Nickname, item.DBId)
 
 		//err = mp.loadArticleDetail(item)
 		//if err != nil {
-		//	mp.AddLog(rockgo.Log_Error, "读取文章详情错误", item.Title, item.Nickname, err.Error())
+		//	mp.AddLog(6, "读取文章详情错误", item.Title, item.Nickname, err.Error())
 		//	err = nil
 		//}
 		item.DBId, err = mp.MPDB.InsertArticlce(item)
 		if err != nil {
-			mp.AddLog(rockgo.Log_Error, "添加文章到数据库错误", item.Title, item.Nickname, err.Error())
+			mp.AddLog(6, "添加文章到数据库错误", item.Title, item.Nickname, err.Error())
 			err = nil
 		}
 
 		//item.DBId, exists, err = mp.MPDB.InsertArticleIfNotExist(item)
 		//if err != nil {
-		//	mp.AddLog(rockgo.Log_Error, "添加文章到数据库错误", item.Title, item.Nickname, err)
+		//	mp.AddLog(6, "添加文章到数据库错误", item.Title, item.Nickname, err)
 		//} else {
 		//	if exists {
-		//		mp.AddLog(rockgo.Log_Info, "数据库已存在此文", item.Title, item.Nickname)
+		//		mp.AddLog(4, "数据库已存在此文", item.Title, item.Nickname)
 		//	} else {
-		//		mp.AddLog(rockgo.Log_Info, "数据库无此文", item.Title, item.Nickname, item.DBId)
+		//		mp.AddLog(4, "数据库无此文", item.Title, item.Nickname, item.DBId)
 		//	}
 		//}
 	}
@@ -258,18 +258,18 @@ func (mp *MiaopaiCrawler) LoadHomeData(urlstr string, user *obj.UserObj) (suid s
 	user.Nickname = htmlDoc.Find("b.nick").First().Text()
 	user.Nickname = strings.TrimSpace(user.Nickname)
 	if user.Nickname == "" {
-		mp.AddLog(rockgo.Log_Warn, "解析主页的nick错误", urlstr)
+		mp.AddLog(5, "解析主页的nick错误", urlstr)
 	}
 
 	videoNum := htmlDoc.Find("div.box_count").First().Children().First().Text()
 	videoNum = strings.TrimSpace(videoNum)
 	if videoNum == "" {
-		mp.AddLog(rockgo.Log_Warn, "解析主页的视频数据错误", urlstr, videoNum)
+		mp.AddLog(5, "解析主页的视频数据错误", urlstr, videoNum)
 	} else {
 		videoNum = strings.Replace(videoNum, `,`, "", -1)
 		user.ArticleNum, err = strconv.Atoi(videoNum)
 		if err != nil {
-			mp.AddLog(rockgo.Log_Warn, "解析主页的视频数错误", videoNum, urlstr, err.Error())
+			mp.AddLog(5, "解析主页的视频数错误", videoNum, urlstr, err.Error())
 			err = nil
 		}
 	}
@@ -283,7 +283,7 @@ func (mp *MiaopaiCrawler) LoadHomeData(urlstr string, user *obj.UserObj) (suid s
 	}
 
 	if user.SourceId == "" {
-		mp.AddLog(rockgo.Log_Error, "解析主页的suid失败", user.Nickname, urlstr)
+		mp.AddLog(6, "解析主页的suid失败", user.Nickname, urlstr)
 		err = rockgo.NewError("解析主页的suid失败", user.Nickname, urlstr)
 	}
 	return user.SourceId, user, err
@@ -307,32 +307,32 @@ func (mp *MiaopaiCrawler) loadArticles(suid string, articlenum int) ([]*obj.Arti
 	resBytes, err, response := mp.mphttp.GetBytes(urlstr, header)
 	if err != nil {
 		err = rockgo.NewError("读取主页文章列表数据失败", urlstr, err)
-		mp.AddLog(rockgo.Log_Error, err.Error())
+		mp.AddLog(6, err.Error())
 		return nil, err
 	}
 	if response.StatusCode != 200 {
 		err = rockgo.NewError("读取主页文章列表数据失败，http结果码", urlstr, response.Status)
-		mp.AddLog(rockgo.Log_Error, err.Error())
+		mp.AddLog(6, err.Error())
 		return nil, err
 	}
 
 	dataJson, err := simplejson.NewJson(resBytes)
 	if err != nil {
 		err = rockgo.NewError("解析文章列表数据为json失败", urlstr, string(resBytes), err)
-		mp.AddLog(rockgo.Log_Error, err.Error())
+		mp.AddLog(6, err.Error())
 		return nil, err
 	}
 	htmlStr, err := dataJson.Get("msg").String()
 	if err != nil {
 		err = rockgo.NewError("解析文章列表数据json内的msg失败", urlstr, string(resBytes), err)
-		mp.AddLog(rockgo.Log_Error, err.Error())
+		mp.AddLog(6, err.Error())
 		return nil, err
 	}
 
 	htmldoc, err := goquery.NewDocumentFromReader(strings.NewReader(htmlStr))
 	if err != nil {
 		err = rockgo.NewError("解析文章列表为doc失败", urlstr, err, string(resBytes))
-		mp.AddLog(rockgo.Log_Error, err.Error())
+		mp.AddLog(6, err.Error())
 		return nil, err
 	}
 
@@ -340,7 +340,7 @@ func (mp *MiaopaiCrawler) loadArticles(suid string, articlenum int) ([]*obj.Arti
 	divLen := divArray.Length()
 	if divLen <= 0 {
 		err = rockgo.NewError("解析文章列表doc内文章数据为0,div.card_wrapping", urlstr, divLen)
-		mp.AddLog(rockgo.Log_Error, err.Error())
+		mp.AddLog(6, err.Error())
 		return nil, err
 	}
 	articleArray := make([]*obj.ArticleObj, 0, divLen+1)
@@ -349,7 +349,7 @@ func (mp *MiaopaiCrawler) loadArticles(suid string, articlenum int) ([]*obj.Arti
 
 		itemArticle, err := mp.parseItemArticleHtml(itemDiv, nil)
 		if err != nil {
-			mp.AddLog(rockgo.Log_Warn, "解析文章列表内的单个文章错误", err, urlstr)
+			mp.AddLog(5, "解析文章列表内的单个文章错误", err, urlstr)
 		}
 		articleArray = append(articleArray, itemArticle)
 	}

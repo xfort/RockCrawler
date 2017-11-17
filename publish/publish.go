@@ -62,7 +62,7 @@ func (pub *PublishObj) handleArticles() {
 			break
 		}
 		if item.TaskObj.PublishCode == 0 {
-			pub.AddLog(rockgo.Log_Info, "文章配置为不发布", item.Title, item.SourceSiteName, item.SourceWebUrl)
+			pub.AddLog(3, "文章配置为不发布", item.Title, item.SourceSiteName, item.SourceWebUrl)
 			continue
 		}
 		pub.handleArticle(item, item.TaskObj)

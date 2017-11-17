@@ -3,7 +3,6 @@ package db
 import (
 	"database/sql"
 	"bytes"
-	"github.com/xfort/rockgo"
 	"fmt"
 
 	"github.com/xfort/RockCrawler/obj"
@@ -120,7 +119,7 @@ func (objdb *ArticleObjDB) createArticleTab() error {
 
 	_, err := objdb.objDB.Exec(sqlBuf.String())
 	if err != nil {
-		err = rockgo.NewError("创建文章数据表失败,", objdb.dataname, err.Error(), sqlBuf.String())
+		err = NewError("创建文章数据表失败,", objdb.dataname, err.Error(), sqlBuf.String())
 	}
 	sqlBuf.Reset()
 	return err
@@ -140,7 +139,7 @@ func (objdb *ArticleObjDB) createUserTab() error {
 	sqlBUf.WriteString(");")
 	_, err := objdb.objDB.Exec(sqlBUf.String())
 	if err != nil {
-		err = rockgo.NewError("创建用户数据表失败,", objdb.dataname, err.Error(), sqlBUf.String())
+		err = NewError("创建用户数据表失败,", objdb.dataname, err.Error(), sqlBUf.String())
 	}
 	sqlBUf.Reset()
 	return err
@@ -332,7 +331,7 @@ func (objdb *ArticleObjDB) CreatePublishTab(tabPre string) error {
 
 	_, err := objdb.objDB.Exec(sqlBUf.String())
 	if err != nil {
-		return rockgo.NewError("创建Publish数据表失败", err.Error(), objdb.dataname, sqlBUf.String())
+		return NewError("创建Publish数据表失败", err.Error(), objdb.dataname, sqlBUf.String())
 	}
 	return nil
 }
@@ -340,7 +339,7 @@ func (objdb *ArticleObjDB) CreatePublishTab(tabPre string) error {
 //查询文章发布状态,根据Article.Title
 func (objdb *ArticleObjDB) QueryArticlePublishStatus(tabPre string, article *obj.ArticleObj) (status int, err error) {
 	if article.Title == "" {
-		return 0, rockgo.NewError("文章title为空", article.SourceWebUrl, article.DBId)
+		return 0, NewError("文章title为空", article.SourceWebUrl, article.DBId)
 	}
 	sqlStr := "SELECT " + Publish_DBId + "," + Publish_Status
 	sqlStr = sqlStr + " FROM " + tabPre + Publish_Tab_Suffix
@@ -515,4 +514,8 @@ func (articleDB *ArticleObjDB) DeletePublishedArticle(accountname string, articl
 	sqlStr := fmt.Sprintf("Delete From %s Where %s=?;", accountname+Publish_Tab_Suffix, Publish_DBId)
 	_, err := articleDB.objDB.Exec(sqlStr, articleId)
 	return err
+}
+
+func NewError(v ...interface{}) error {
+	return errors.New(fmt.Sprint(v...))
 }

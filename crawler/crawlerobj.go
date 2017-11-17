@@ -73,7 +73,7 @@ func (co *CrawlerObj) readConfig() {
 
 	taskArray, err := obj.ParseConfigFile(configPath, filepath.Join(co.ConfigDirPath, "publisher_config.json"))
 	if err != nil {
-		co.AddLog(rockgo.Log_Error, "读取解析配置文件错误", err.Error(), configPath)
+		co.AddLog(6, "读取解析配置文件错误", err.Error(), configPath)
 		time.AfterFunc(1*time.Minute, co.readConfig)
 		return
 	}
@@ -118,24 +118,24 @@ func (co *CrawlerObj) startHandlerTask() {
 			break
 		}
 		if item.CollectCode == 0 {
-			co.AddLog(rockgo.Log_Info, "忽略此任务，标记为不采集", item.Name, item.TaskUrl)
+			co.AddLog(4, "忽略此任务，标记为不采集", item.Name, item.TaskUrl)
 			continue
 		}
 
 		if co.LoadArticles == nil {
-			co.AddLog(rockgo.Log_Error, "执行任务错误，负责读取处理文章函数为空", item.Name, item.TaskUrl)
+			co.AddLog(6, "执行任务错误，负责读取处理文章函数为空", item.Name, item.TaskUrl)
 			continue
 		}
 
 		articleArray, err := co.LoadArticles(item)
-		co.AddLog(rockgo.Log_Info, "采集结束", item.Name, "采集数据", len(articleArray))
+		co.AddLog(4, "采集结束", item.Name, "采集数据", len(articleArray))
 
 		if err != nil {
-			co.AddLog(rockgo.Log_Error, "执行任务错误", err, item.Name, item.TaskUrl)
+			co.AddLog(6, "执行任务错误", err, item.Name, item.TaskUrl)
 		}
 
 		//if item.PublishCode == 0 {
-		//	co.AddLog(rockgo.Log_Info, "不发布此任务文章，标记为不发布", item.Name, item.TaskUrl)
+		//	co.AddLog(4, "不发布此任务文章，标记为不发布", item.Name, item.TaskUrl)
 		//	continue
 		//}
 
@@ -144,7 +144,7 @@ func (co *CrawlerObj) startHandlerTask() {
 
 				err = co.PublishArticles(articleArray)
 				if err != nil {
-					co.AddLog(rockgo.Log_Error, "发布文章出现错误", co.TypeName, err.Error())
+					co.AddLog(6, "发布文章出现错误", co.TypeName, err.Error())
 				}
 			}
 			//go co.sendRes(articleArray)
