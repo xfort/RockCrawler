@@ -1,4 +1,5 @@
 publisher_config.json
-.idea
-/.idea
+.idea/
+*.exe
+*.linux
 *.DS_Store
