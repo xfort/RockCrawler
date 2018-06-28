@@ -1,0 +1,138 @@
+syntax = "proto3";
+package protoobj;
+import "google/protobuf/any.proto";
+
+//option go_package = "github.com/golang/protobuf/ptypes/any";
+
+
+message ArticleObj {
+    int64 dbid = 1;
+    //在各个平台的id，用于判断文章是否重复
+    string idstr = 2;
+    string title = 3;
+    string sourceData = 4;
+    string content = 5;
+    //文章页链接
+    string weburl = 6;
+    //发布时间，UTC秒
+    int64 publishUnix = 7;
+
+    //开始采集此文的时间 UTC秒
+    int64 createdUnix = 8;
+
+    MediaType mediaType = 10;
+
+    //作者数据
+    UserObj author = 11;
+
+    //公众号数据
+    AccountObj account = 12;
+    //所属任务
+    CrawlerTaskObj crawlerTaskObj = 13;
+
+    VideoObj video = 14;
+    int32 readCount = 20;
+    int32 commentCount = 21;
+    StatusCode statusCode = 22;
+
+    // 其它数据
+    map<string, google.protobuf.Any> data = 23;
+
+}
+
+//视频类数据
+message VideoObj {
+    string idstr = 1;
+    string title = 2;
+    //视频播放地址
+    string playUrl = 3;
+
+    // 其它数据
+    map<string, google.protobuf.Any> data = 20;
+
+}
+
+//媒体平台，uc，qq快报等
+enum MediaType {
+    Null = 0;
+}
+
+enum StatusCode {
+    //空闲，未开始
+    IDLE = 0;
+
+    //等待，队列中等待
+    Waiting = 1;
+    Running = 2;
+    Finished = 3;
+}
+
+message UserObj {
+    int64 dbid = 1;
+
+    //平台id,或唯一帐号
+    string idstr = 2;
+
+    string nickname = 3;
+
+    //头像
+    string avatarUrl = 4;
+
+    //主页链接
+    string homepageUrl = 5;
+
+    //描述介绍
+    string desc = 6;
+    MediaType mediaType = 7;
+
+    //创建此用户时间 UTC秒
+    int64 createdUnix = 20;
+
+    // 其它数据
+    map<string, google.protobuf.Any> data = 21;
+}
+
+//媒体帐号
+message AccountObj {
+    int64 dbid = 1;
+
+    //平台id
+    string idstr = 2;
+
+    //帐号名
+    string name = 3;
+
+    //简介描述
+    string desc = 4;
+
+    //主页
+    string homepageUrl = 5;
+
+    //帐号头像
+    string avatarUrl = 6;
+    MediaType mediaType = 7;
+
+    //创建此媒体号时间/入库时间 UTC秒
+    int64 createdUnix = 20;
+
+    // 其它数据
+    map<string, google.protobuf.Any> data = 21;
+
+}
+
+//采集任务
+message CrawlerTaskObj {
+    int64 id = 1;
+    string name = 2;
+    //起始采集页
+    string indexUrl = 3;
+
+    //任务当前状态
+    StatusCode statusCode = 4;
+
+    // 任务开始时 时间 UTC秒
+    int64 startUnix = 20;
+
+    //任务结束时，时间 UTC秒
+    int64 endUnix = 21;
+}
